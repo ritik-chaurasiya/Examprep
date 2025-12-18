@@ -1,12 +1,41 @@
-# React + Vite
+# Examprep – Online Management System (OMS)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Examprep is a web-based Online Management System developed using the MERN stack.  
+The platform is designed to support students in exam preparation by providing a structured and digital learning environment.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Objective
+The main objective of this project is to build a scalable and user-friendly system that manages exam preparation activities efficiently using modern web technologies.
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Features
+- User authentication and authorization
+- Student-friendly dashboard
+- Exam and test management
+- Secure RESTful APIs
+- Responsive and modern user interface
+- Separation of frontend and backend
+
+---
+
+## Technology Stack
+
+### Frontend
+- React.js
+- Vite
+- HTML5
+- CSS3
+- JavaScript
+
+### Backend
+- Node.js
+- Express.js
+
+### Database
+- MongoDB
+
+---
+
+## Project Structure
