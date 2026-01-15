@@ -14,8 +14,8 @@ const AdminHome = () => {
   const [dataExams, setDataExams] = useState([])
   const handlefetch = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/dashboard/");
-      const res =  await axios.get('http://localhost:5000/api/exams/exams');
+      const response = await fetch("https://examprep-bxeo.onrender.com/api/dashboard/");
+      const res =  await axios.get('https://examprep-bxeo.onrender.com/api/exams/exams');
       setDataExams(res.data)
       const result = await response.json();
       setData(result);

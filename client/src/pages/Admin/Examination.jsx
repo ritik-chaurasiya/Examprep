@@ -27,9 +27,9 @@ const Examination = () => {
   const fetchData = async () => {
     try {
       const [subjectRes, sessionRes, examRes] = await Promise.all([
-        axios.get('http://localhost:5000/api/subject'),
-        axios.get('http://localhost:5000/api/session'),
-        axios.get('http://localhost:5000/api/exams/exams')
+        axios.get('https://examprep-bxeo.onrender.com/api/subject'),
+        axios.get('https://examprep-bxeo.onrender.com/api/session'),
+        axios.get('https://examprep-bxeo.onrender.com/api/exams/exams')
       ]);
       setSubjects(subjectRes.data.data || []);
       setSessions(sessionRes.data.data || []);
@@ -92,10 +92,10 @@ const Examination = () => {
 
     try {
       if (isEditing && editingExamId) {
-        await axios.put(`http://localhost:5000/api/exams/${editingExamId}`, formData);
+        await axios.put(`https://examprep-bxeo.onrender.com/api/exams/${editingExamId}`, formData);
         alert('Exam Updated Successfully');
       } else {
-        await axios.post('http://localhost:5000/api/exams', formData);
+        await axios.post('https://examprep-bxeo.onrender.com/api/exams', formData);
         alert('Exam Created Successfully');
       }
 
@@ -121,7 +121,7 @@ const Examination = () => {
   };
 
   const handleDelete = async (id) => {
-    const res = await axios.delete(`http://localhost:5000/api/exams/${id}`);
+    const res = await axios.delete(`https://examprep-bxeo.onrender.com/api/exams/${id}`);
     if (res) {
       alert("Deleted Successfully");
       fetchData();

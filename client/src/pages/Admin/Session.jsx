@@ -33,7 +33,7 @@ const Session = () => {
     e.preventDefault();
     try {
       if (editform) {
-        const res = await axios.put(`http://localhost:5000/api/session/${id.id}`, form);
+        const res = await axios.put(`https://examprep-bxeo.onrender.com/api/session/${id.id}`, form);
         if (res) {
           alert('Session updated Successfully')
           handlefetch();
@@ -41,7 +41,7 @@ const Session = () => {
         }
       }
       else {
-        const res = await axios.post('http://localhost:5000/api/session', form)
+        const res = await axios.post('https://examprep-bxeo.onrender.com/api/session', form)
         if (res) {
           alert('Session Added Successfully')
           handlefetch();
@@ -49,13 +49,13 @@ const Session = () => {
         }
       }
     }
-    catch (er) {
+    catch(er){
       alert("Sorry try again later")
     }
   }
   // fetch data api
   const handlefetch = async () => {
-    const res = await axios.get('http://localhost:5000/api/session')
+    const res = await axios.get('https://examprep-bxeo.onrender.com/api/session')
     // console.log(res.data);
     setData(res.data.data);
   }
@@ -67,7 +67,7 @@ const Session = () => {
   // handle delete logic
   const handleDelete = async (id) => {
     // console.log(id)
-    const res = await axios.delete(`http://localhost:5000/api/session/${id}`);
+    const res = await axios.delete(`https://examprep-bxeo.onrender.com/api/session/${id}`);
     if (res) {
       alert("Deleted Successfully");
     }

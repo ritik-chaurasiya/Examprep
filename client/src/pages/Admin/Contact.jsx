@@ -8,7 +8,7 @@ const Contact = () => {
 
   const fetchAll = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/message/all');
+      const res = await axios.get('https://examprep-bxeo.onrender.com/api/message/all');
       setMessages(res.data.message || []);
     } catch (err) {
       console.error('Error fetching messages for admin:', err);
@@ -25,7 +25,7 @@ const Contact = () => {
     const answer = (replyInputs[id] || '').trim();
     if (!answer) return alert('Please type a reply.');
     try {
-      await axios.put(`http://localhost:5000/api/message/reply/${id}`, {
+      await axios.put(`https://examprep-bxeo.onrender.com/api/message/reply/${id}`, {
         answer,
         role: 'admin'
       });
@@ -40,7 +40,7 @@ const Contact = () => {
     const newReply = prompt('Edit reply:', currentReply || '');
     if (newReply === null) return;
     try {
-      await axios.put(`http://localhost:5000/api/message/reply/${id}`, {
+      await axios.put(`https://examprep-bxeo.onrender.com/api/message/reply/${id}`, {
         answer: newReply,
         role: 'admin'
       });
@@ -53,7 +53,7 @@ const Contact = () => {
   const deleteByAdmin = async (id) => {
     if (!window.confirm('Delete this reply?')) return;
     try {
-      await axios.put(`http://localhost:5000/api/message/delete/${id}`, {
+      await axios.put(`https://examprep-bxeo.onrender.com/api/message/delete/${id}`, {
         role: 'admin'
       });
       fetchAll();

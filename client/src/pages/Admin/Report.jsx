@@ -6,7 +6,7 @@ const Report = () => {
 
   const handlefetch = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/exams/report');
+      const res = await axios.get('https://examprep-bxeo.onrender.com/api/exams/report');
       setData(res.data);
     } catch (er) {
       alert("Sorry, fetching reports failed");

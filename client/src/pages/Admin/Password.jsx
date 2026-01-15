@@ -18,7 +18,7 @@ const Password = () => {
     const handleSubmit = async(e)=>{
         e.preventDefault();
         try{
-            const res =await axios.put(`http://localhost:5000/api/admin/change/${email}`,data);
+            const res = await axios.put(`https://examprep-bxeo.onrender.com/api/admin/change/${email}`,data);
             if(res){
                 alert(res.data.message);
                 if(res.data.message==="password changed successfully"){

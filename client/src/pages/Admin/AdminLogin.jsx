@@ -15,7 +15,7 @@ const AdminLogin = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const res = await axios.post('http://localhost:5000/api/admin/login', form);
+        const res = await axios.post('https://examprep-bxeo.onrender.com/api/admin/login', form);
 
         if (res.data.message === "Login Successfully") {
             localStorage.setItem("role", res.data.admin.role);
@@ -233,8 +233,8 @@ const AdminLogin = () => {
                         </div>
 
                         <div style={styles.createAccount}>
-                            Don't have an account?
-                            <a href="#" style={styles.link}>Sign up</a>
+                            Login by Student?
+                            <a href="/" style={styles.link}>Sign in</a>
                         </div>
 
                     </form>

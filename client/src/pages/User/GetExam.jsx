@@ -19,7 +19,7 @@ const GetExam = () => {
   useEffect(() => {
     const fetchExam = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/api/exams/exam/${examId}`);
+        const res = await axios.get(`https://examprep-bxeo.onrender.com/api/exams/exam/${examId}`);
 
         const examData = res.data?.exam || null;
         const questionData = Array.isArray(res.data?.questions) ? res.data.questions : [];
@@ -68,7 +68,7 @@ const GetExam = () => {
     if (submitted) return;
 
     try {
-      const res = await axios.post('http://localhost:5000/api/exams/submit-exam', {
+      const res = await axios.post('https://examprep-bxeo.onrender.com/api/exams/submit-exam', {
         examId,
         answers,
         email,

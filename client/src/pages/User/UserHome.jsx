@@ -124,12 +124,12 @@ const UserHome = () => {
   const handlefetch = async () => {
     try {
       // Fetch exams
-      const response = await fetch(`http://localhost:5000/api/dashboard/exams/${examineId}`);
+      const response = await fetch(`https://examprep-bxeo.onrender.com/api/dashboard/exams/${examineId}`);
       const result = await response.json();
       setData(result || []);  // Ensure array
 
       // Fetch results
-      const res = await axios.get(`http://localhost:5000/api/dashboard/examinee-result/${examineId}`);
+      const res = await axios.get(`https://examprep-bxeo.onrender.com/api/dashboard/examinee-result/${examineId}`);
       const messageData = Array.isArray(res.data.message)
         ? res.data.message.length
         : res.data.message

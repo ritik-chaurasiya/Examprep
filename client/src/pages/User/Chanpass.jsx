@@ -18,7 +18,7 @@ const Chanpass = () => {
     const handleSubmit = async(e)=>{
         e.preventDefault();
         try{
-            const res =await axios.put(`http://localhost:5000/api/examinee/change/${userId}`,data);
+            const res = await axios.put(`https://examprep-bxeo.onrender.com/api/examinee/change/${userId}`,data);
             if(res){
                 alert("Password Changed")
             }
