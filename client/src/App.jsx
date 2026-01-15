@@ -10,7 +10,7 @@ import Subject from "./pages/Admin/Subject";
 import Examinee from "./pages/Admin/Examinee";
 import AdminLogin from "./pages/Admin/AdminLogin";
 import QuestionBank from "./pages/Admin/QuestionBank";
-import UserDash from "./pages/User/Userdash";
+import UserDash from "./pages/User/UserDash";
 import Examination from "./pages/Admin/Examination";
 import Report from "./pages/Admin/Report";
 import Contact from "./pages/Admin/Contact";
