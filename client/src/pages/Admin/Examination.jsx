@@ -148,49 +148,53 @@ const Examination = () => {
   };
 
   return (
-    <div className="container-fluid p-0">
-      <div className="row ">
-        <div className="col-sm-12 ">
-          <div
-            className="card p-2"
-            style={{
-              border: "1px solid #6f42c1",
-              minHeight: "220px",
-              width: "100%",
-            }}
-          >
-            <h3 className="fw-bold" style={{ color: "#6f42c1" }}>
-              {isEditing ? 'Edit Examination' : 'Create Examination'}
+    <div className="container-fluid p-2">
+
+      {/* ================= CREATE / EDIT EXAM CARD ================= */}
+      <div className="row">
+        <div className="col-12">
+          <div className="card p-3 border border-2" style={{ borderColor: "#6f42c1" }}>
+            <h3 className="fw-bold mb-3" style={{ color: "#6f42c1" }}>
+              {isEditing ? "Edit Examination" : "Create Examination"}
             </h3>
+
             {error && <div className="alert alert-danger">{error}</div>}
+
             <form onSubmit={handleSubmit}>
-              <div className='row'>
-                <div className='col-sm-4'>
+
+              {/* Row 1 */}
+              <div className="row g-2">
+                <div className="col-12 col-md-4">
                   <input
                     type="text"
                     className="form-control"
-                    name="examName" placeholder='Exam Name'
+                    name="examName"
+                    placeholder="Exam Name"
                     value={formData.examName}
                     onChange={handleChange}
                     required
                   />
                 </div>
-                <div className='col-sm-4'>
+
+                <div className="col-12 col-md-4">
                   <input
                     type="number"
                     className="form-control"
-                    name="totalMarks" placeholder='Total Marks'
+                    name="totalMarks"
+                    placeholder="Total Marks"
                     value={formData.totalMarks}
                     onChange={handleChange}
                     min="1"
                     required
                   />
                 </div>
-                <div className='col-sm-4'>
+
+                <div className="col-12 col-md-4">
                   <input
                     type="number"
                     className="form-control"
-                    name="passingMarks" placeholder='Passing Marks'
+                    name="passingMarks"
+                    placeholder="Passing Marks"
                     value={formData.passingMarks}
                     onChange={handleChange}
                     min="1"
@@ -198,32 +202,37 @@ const Examination = () => {
                   />
                 </div>
               </div>
-              <div className='row mt-1'>
-                <div className='col-sm-4'>
+
+              {/* Row 2 */}
+              <div className="row g-2 mt-1">
+                <div className="col-12 col-md-4">
                   <input
                     type="date"
                     className="form-control"
-                    name="date" placeholder='Date'
+                    name="date"
                     value={formData.date}
                     onChange={handleChange}
                     required
                   />
                 </div>
-                <div className='col-sm-4'>
+
+                <div className="col-12 col-md-4">
                   <input
                     type="time"
                     className="form-control"
-                    name="time" placeholder='Time'
+                    name="time"
                     value={formData.time}
                     onChange={handleChange}
                     required
                   />
                 </div>
-                <div className='col-sm-4'>
+
+                <div className="col-12 col-md-4">
                   <input
                     type="number"
                     className="form-control"
-                    name="duration" placeholder='Duration(minutes)'
+                    name="duration"
+                    placeholder="Duration (minutes)"
                     value={formData.duration}
                     onChange={handleChange}
                     min="1"
@@ -231,8 +240,10 @@ const Examination = () => {
                   />
                 </div>
               </div>
-              <div className='row mt-1'>
-                <div className='col-sm-6'>
+
+              {/* Row 3 */}
+              <div className="row g-2 mt-1">
+                <div className="col-12 col-md-6">
                   <select
                     className="form-select"
                     name="sessionId"
@@ -248,7 +259,8 @@ const Examination = () => {
                     ))}
                   </select>
                 </div>
-                <div className='col-sm-6'>
+
+                <div className="col-12 col-md-6">
                   <select
                     className="form-select"
                     name="status"
@@ -262,11 +274,17 @@ const Examination = () => {
                   </select>
                 </div>
               </div>
+
               <hr />
-              <h5 className="fw-bold" style={{ color: "#6f42c1" }}>Question Distribution</h5>
+
+              {/* ================= QUESTION DISTRIBUTION ================= */}
+              <h5 className="fw-bold mb-2" style={{ color: "#6f42c1" }}>
+                Question Distribution
+              </h5>
+
               {formData.questionDistribution.map((item, index) => (
-                <div className="row mb-1" key={index}>
-                  <div className="col-md-6 m-1">
+                <div className="row g-2 align-items-center mb-2" key={index}>
+                  <div className="col-12 col-md-6">
                     <select
                       className="form-select"
                       name="subject"
@@ -282,7 +300,8 @@ const Examination = () => {
                       ))}
                     </select>
                   </div>
-                  <div className="col-md-4">
+
+                  <div className="col-8 col-md-4">
                     <input
                       type="number"
                       className="form-control"
@@ -294,10 +313,11 @@ const Examination = () => {
                       required
                     />
                   </div>
-                  <div className="col-md-2">
+
+                  <div className="col-4 col-md-2 d-grid">
                     <button
                       type="button"
-                      className="btn-delete"
+                      className="btn btn-danger btn-sm"
                       onClick={() => removeDistributionField(index)}
                     >
                       Remove
@@ -305,69 +325,92 @@ const Examination = () => {
                   </div>
                 </div>
               ))}
-              <div className="mb-1">
-                <button type="button" className="btn btn-secondary" style={{ background: "#795899ff" }} onClick={addDistributionField}>
+
+              <div className="mb-2">
+                <button
+                  type="button"
+                  className="btn btn-secondary"
+                  style={{ background: "#795899ff" }}
+                  onClick={addDistributionField}
+                >
                   + Add Subject
                 </button>
               </div>
-              <button type="submit" className="btn btn-light text-white  mt-1" style={{ background: "#39064fff " }}>
-                {isEditing ? 'Update Exam' : 'Create Exam'}
+
+              <button
+                type="submit"
+                className="btn text-white"
+                style={{ background: "#39064fff" }}
+              >
+                {isEditing ? "Update Exam" : "Create Exam"}
               </button>
             </form>
           </div>
         </div>
       </div>
 
-      <div className="card mx-auto mt-2" style={{ border: "1px solid #6f42c1", width: "100%" }}>
+      {/* ================= EXAM TABLE ================= */}
+      <div className="card mt-3 border border-2" style={{ borderColor: "#6f42c1" }}>
         <div className="card-body">
-          <div className="row">
-            <div className="col-sm-12">
-              <h3 className="fw-bold" style={{ color: "#6f42c1" }}>Examination Details</h3>
-            </div>
-          </div>
-          <div className="row">
-            <div className="col-sm-12">
-              <table className="table table-bordered text-center">
-                <thead className="thead-light-purple">
-                  <tr>
-                    <th>S.No.</th>
-                    <th>Exam Name</th>
-                    <th>Total Marks</th>
-                    <th>Passing Marks</th>
-                    <th>Date</th>
-                    <th>Time</th>
-                    <th>Duration</th>
-                    <th>Session</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {exams.map((exam, index) => (
-                    <tr key={exam._id}>
-                      <td>{index + 1}</td>
-                      <td>{exam.title}</td>
-                      <td>{exam.totalMarks}</td>
-                      <td>{exam.passingMarks}</td>
-                      <td>{exam.date}</td>
-                      <td>{exam.time}</td>
-                      <td>{exam.duration}</td>
-                     <td>{exam.sessionId?.name || 'N/A'}</td>
+          <h3 className="fw-bold mb-3" style={{ color: "#6f42c1" }}>
+            Examination Details
+          </h3>
 
-                      <td>{exam.status}</td>
-                      <td>
-                        <button className="btn-edit me-2" onClick={() => handleEdit(exam)}>Edit</button>
-                        <button className="btn-delete" onClick={() => handleDelete(exam._id)}>Delete</button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+          <div className="table-responsive">
+            <table className="table table-bordered table-hover text-center align-middle">
+              <thead style={{ background: "#f2e6ff" }}>
+                <tr>
+                  <th>S.No.</th>
+                  <th>Exam Name</th>
+                  <th>Total</th>
+                  <th>Passing</th>
+                  <th>Date</th>
+                  <th>Time</th>
+                  <th>Duration</th>
+                  <th>Session</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                {exams.map((exam, index) => (
+                  <tr key={exam._id}>
+                    <td>{index + 1}</td>
+                    <td>{exam.title}</td>
+                    <td>{exam.totalMarks}</td>
+                    <td>{exam.passingMarks}</td>
+                    <td>{exam.date}</td>
+                    <td>{exam.time}</td>
+                    <td>{exam.duration}</td>
+                    <td>{exam.sessionId?.name || "N/A"}</td>
+                    <td>{exam.status}</td>
+                    <td>
+                      <div className="d-flex flex-wrap gap-2 justify-content-center">
+                        <button
+                          className="btn btn-warning btn-sm"
+                          onClick={() => handleEdit(exam)}
+                        >
+                          Edit
+                        </button>
+                        <button
+                          className="btn btn-danger btn-sm"
+                          onClick={() => handleDelete(exam._id)}
+                        >
+                          Delete
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
+
     </div>
+
   );
 };
 

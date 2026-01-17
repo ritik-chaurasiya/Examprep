@@ -33,60 +33,97 @@ const Password = () => {
         }
     }
     return (
-        <div className='container-fluid p-0'>
-            <div className="row ">
-                <div className="col-sm-12 ">
-                  <div
-              className="card"
-              style={{
-                border: "1px solid #6f42c1",
-                minHeight: "220px",
-                width: "100%",
-              }}
-            >
-                        <div className="">
-                            <form onSubmit={handleSubmit} method="post" className="border p-2 rounded">
-                                <div className="row ">
-                                    <div className="col-sm-12 ">
-                                        <h5 className="fw-bold" style={{ color: "#6f42c1" }}><i className="fa-solid fa-plus" style={{ marginRight: "8px" }}></i>Update Password</h5>
+        <div className="container-fluid p-2">
+
+            <div className="row justify-content-center">
+                <div className="col-12 col-md-8 col-lg-6">
+                    <div
+                        className="card border border-2"
+                        style={{ borderColor: "#6f42c1" }}
+                    >
+                        <div className="card-body">
+
+                            <form onSubmit={handleSubmit} method="post">
+                                {/* Heading */}
+                                <div className="row mb-3">
+                                    <div className="col-12">
+                                        <h5 className="fw-bold" style={{ color: "#6f42c1" }}>
+                                            <i className="fa-solid fa-lock me-2"></i>
+                                            Update Password
+                                        </h5>
                                     </div>
                                 </div>
-                                <div className="row mt-1">
-                                    <div className="col-sm-12"><h6>Old Password</h6></div>
-                                    <div className="col-sm-12  ">
+
+                                {/* Old Password */}
+                                <div className="row mb-3">
+                                    <div className="col-12">
+                                        <label className="form-label fw-semibold">
+                                            Old Password
+                                        </label>
                                         <input
-                                            type="text" name='op'
-                                            placeholder=""
+                                            type="password"
+                                            name="op"
                                             className="form-control"
                                             onChange={handleChange}
+                                            required
                                         />
                                     </div>
                                 </div>
-                                <div className="row mt-1">
-                                    <div className="col-sm-12"><h6>New Password</h6></div>
-                                    <div className="col-sm-12 ">
-                                        <input name="np" 
-                                        onChange={handleChange} 
-                                        className="form-control" 
-                                        placeholder="" 
-                                        rows="2"/>
+
+                                {/* New Password */}
+                                <div className="row mb-3">
+                                    <div className="col-12">
+                                        <label className="form-label fw-semibold">
+                                            New Password
+                                        </label>
+                                        <input
+                                            type="password"
+                                            name="np"
+                                            className="form-control"
+                                            onChange={handleChange}
+                                            required
+                                        />
                                     </div>
                                 </div>
-                                <div className="row mt-1">
-                                    <div className="col">
-                                        <label><h6>Confirm New Password</h6></label>
 
-                                        <input type="text" name="cnp" onChange={handleChange} className="form-control" placeholder="" aria-label="First name" />
+                                {/* Confirm Password */}
+                                <div className="row mb-4">
+                                    <div className="col-12">
+                                        <label className="form-label fw-semibold">
+                                            Confirm New Password
+                                        </label>
+                                        <input
+                                            type="password"
+                                            name="cnp"
+                                            className="form-control"
+                                            onChange={handleChange}
+                                            required
+                                        />
                                     </div>
                                 </div>
 
-                                <button type="submit" className="btn btn-light text-white  mt-1" style={{ background: "#39064fff " }} >Update Password</button>
+                                {/* Submit */}
+                                <div className="row">
+                                    <div className="col-12 d-grid">
+                                        <button
+                                            type="submit"
+                                            className="btn text-white"
+                                            style={{ background: "#39064fff" }}
+                                        >
+                                            Update Password
+                                        </button>
+                                    </div>
+                                </div>
+
                             </form>
+
                         </div>
                     </div>
                 </div>
             </div>
+
         </div>
+
     )
 }
 

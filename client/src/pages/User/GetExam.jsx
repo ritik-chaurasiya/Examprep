@@ -93,75 +93,134 @@ const GetExam = () => {
   }
 
   return (
-    <div className="exam-container container my-4">
-      <div className="sticky-timer shadow-sm">
-        ⏰ Time Left: <span className="fw-bold text-danger">{formatTime(timeLeft)}</span>
-      </div>
+    <div className="container-fluid px-2 px-md-3 my-4">
+      <div className="row justify-content-center">
+        <div className="col-12 col-lg-10 col-xl-9">
 
-      <div className="card shadow exam-info mb-4">
-        <div className="card-body">
-          <h2 className="exam-title">{exam.title}</h2>
-          <div className="row text-center mt-3">
-            <div className="col-md-4"><strong>Duration:</strong> {exam.duration} mins</div>
-            <div className="col-md-4"><strong>Total Marks:</strong> {exam.totalMarks}</div>
-            <div className="col-md-4"><strong>Passing Marks:</strong> {exam.passingMarks}</div>
+          {/* Sticky Timer */}
+          <div className="sticky-top mb-3">
+            <div className="alert alert-light border-start border-4 border-danger shadow-sm d-flex justify-content-between align-items-center">
+              <span className="fw-semibold">⏰ Time Left</span>
+              <span className="fw-bold text-danger fs-5">
+                {formatTime(timeLeft)}
+              </span>
+            </div>
           </div>
-        </div>
-      </div>
 
-      {!submitted ? (
-        <>
-          {!testStarted && (
-            <div className="alert alert-warning">
-              ⚠ Click any answer to start the exam timer.
+          {/* Exam Info */}
+          <div className="card shadow-sm mb-4">
+            <div className="card-body text-center">
+              <h2 className="fw-bold text-primary mb-3">
+                {exam.title}
+              </h2>
+
+              <div className="row g-3">
+                <div className="col-12 col-md-4">
+                  <div className="info-box">
+                    <div className="text-muted">Duration</div>
+                    <div className="fw-bold">{exam.duration} mins</div>
+                  </div>
+                </div>
+                <div className="col-12 col-md-4">
+                  <div className="info-box">
+                    <div className="text-muted">Total Marks</div>
+                    <div className="fw-bold">{exam.totalMarks}</div>
+                  </div>
+                </div>
+                <div className="col-12 col-md-4">
+                  <div className="info-box">
+                    <div className="text-muted">Passing Marks</div>
+                    <div className="fw-bold">{exam.passingMarks}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {!submitted ? (
+            <>
+              {!testStarted && (
+                <div className="alert alert-warning text-center">
+                  ⚠ Click any option to start the exam timer
+                </div>
+              )}
+
+              {/* Questions */}
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  handleSubmit();
+                }}
+              >
+                {Array.isArray(questions) &&
+                  questions.map((q, index) => (
+                    <div
+                      key={q._id}
+                      className="card question-card shadow-sm mb-3"
+                    >
+                      <div className="card-body">
+                        <h5 className="fw-semibold mb-3">
+                          Q{index + 1}. {q.question}
+                        </h5>
+
+                        {[q.optionA, q.optionB, q.optionC, q.optionD].map(
+                          (opt, i) => (
+                            <label
+                              key={i}
+                              className="option-item d-flex align-items-center"
+                            >
+                              <input
+                                type="radio"
+                                className="form-check-input me-2"
+                                name={`question-${q._id}`}
+                                value={opt}
+                                checked={answers[q._id] === opt}
+                                onChange={() =>
+                                  handleAnswerChange(q._id, opt)
+                                }
+                                disabled={submitted}
+                              />
+                              <span>{opt}</span>
+                            </label>
+                          )
+                        )}
+                      </div>
+                    </div>
+                  ))}
+
+                {/* Submit */}
+                <div className="text-center my-4">
+                  <button
+                    type="submit"
+                    className="btn btn-primary btn-lg px-5 w-100 w-md-auto"
+                    disabled={submitted}
+                  >
+                    🚀 Submit Exam
+                  </button>
+                </div>
+              </form>
+            </>
+          ) : (
+            /* Result */
+            <div className="card shadow text-center p-4">
+              <h4 className="fw-bold mb-3">Exam Result</h4>
+              <p className="fs-5">
+                <strong>Score:</strong> {result?.score}
+              </p>
+              <span
+                className={`badge fs-6 ${result?.passed ? "bg-success" : "bg-danger"
+                  }`}
+              >
+                {result?.passed ? "Passed" : "Failed"}
+              </span>
             </div>
           )}
 
-          <form onSubmit={(e) => { e.preventDefault(); handleSubmit(); }}>
-            {Array.isArray(questions) &&
-              questions.map((q, index) => (
-                <div key={q._id} className="card shadow-sm mb-3 question-card">
-                  <div className="card-body">
-                    <h5 className="question-text">Q{index + 1}: {q.question}</h5>
-
-                    {[q.optionA, q.optionB, q.optionC, q.optionD].map((opt, i) => (
-                      <div className="form-check option-item" key={i}>
-                        <input
-                          type="radio"
-                          name={`question-${q._id}`}
-                          value={opt}
-                          checked={answers[q._id] === opt}
-                          onChange={() => handleAnswerChange(q._id, opt)}
-                          className="form-check-input"
-                          id={`opt-${q._id}-${i}`}
-                          disabled={submitted}
-                        />
-                        <label className="form-check-label option-label" htmlFor={`opt-${q._id}-${i}`}>
-                          {opt}
-                        </label>
-                      </div>
-                    ))}
-
-                  </div>
-                </div>
-              ))}
-
-            <div className="text-center">
-              <button type="submit" className="btn btn-lg btn-primary px-5" disabled={submitted}>
-                🚀 Submit Exam
-              </button>
-            </div>
-
-          </form>
-        </>
-      ) : (
-        <div className="card shadow p-4">
-          <h4>Exam Result</h4>
-          <p><strong>Score:</strong> {result?.score}</p>
-          <p><strong>Status:</strong> {result?.passed ? "Passed" : "Failed"}</p>
         </div>
-      )}
+      </div>
     </div>
+
+
   );
 };
 

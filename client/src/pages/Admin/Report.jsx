@@ -50,49 +50,95 @@ const Report = () => {
   };
 
   return (
-    <div className='container-fluid p-0'>
-      <div className="card mx-auto mt-2" style={{ border: "1px solid #6f42c1", width: "100%" }}>
-        <div className="card-body">
-          <h3 className="fw-bold" style={{ color: "#6f42c1" }}>Examinee Data</h3>
-          <table className="table table-bordered text-center">
-            <thead className="thead-light-purple">
-              <tr>
-                <th>S.No.</th>
-                <th>Exam name</th>
-                <th>Examinee</th>
-                <th>Examinee Email</th>
-                <th>Total Marks</th>
-                <th>Passing Marks</th>
-                <th>Score</th>
-                <th>Status</th>
-                <th>Date Of Exam</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {data.map((item, i) => (
-                <tr key={item._id }>
-                  <td>{i + 1}</td>
-                  <td>{item.examTitle}</td>
-                  <td>{item.examineeName}</td>
-                  <td>{item.examineeEmail}</td>
-                  <td>{item.totalMarks}</td>
-                  <td>{item.passingMarks}</td>
-                  <td>{item.score}</td>
-                  <td>{item.status}</td>
-                  <td>{item.attemptedAt}</td>
-                  <td>
-                    <button className="btn-delete" onClick={() => handlePrint(item)}>
-                      Print
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+    <div className="container-fluid p-2">
+
+      <div className="row">
+        <div className="col-12">
+          <div
+            className="card border border-2 mt-2"
+            style={{ borderColor: "#6f42c1" }}
+          >
+            <div className="card-body">
+
+              {/* Heading */}
+              <div className="row mb-3">
+                <div className="col-12">
+                  <h3 className="fw-bold mb-0" style={{ color: "#6f42c1" }}>
+                    Examinee Data
+                  </h3>
+                </div>
+              </div>
+
+              {/* Responsive Table */}
+              <div className="table-responsive">
+                <table className="table table-bordered table-hover align-middle text-center">
+                  <thead style={{ background: "#f2e6ff" }}>
+                    <tr>
+                      <th>S.No.</th>
+                      <th>Exam Name</th>
+                      <th>Examinee</th>
+                      <th>Email</th>
+                      <th>Total</th>
+                      <th>Passing</th>
+                      <th>Score</th>
+                      <th>Status</th>
+                      <th>Date</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+
+                  <tbody>
+                    {data.length > 0 ? (
+                      data.map((item, i) => (
+                        <tr key={item._id}>
+                          <td>{i + 1}</td>
+                          <td>{item.examTitle}</td>
+                          <td>{item.examineeName}</td>
+                          <td className="text-break">
+                            {item.examineeEmail}
+                          </td>
+                          <td>{item.totalMarks}</td>
+                          <td>{item.passingMarks}</td>
+                          <td>{item.score}</td>
+                          <td>
+                            <span
+                              className={`badge ${item.status === "Pass"
+                                  ? "bg-success"
+                                  : "bg-danger"
+                                }`}
+                            >
+                              {item.status}
+                            </span>
+                          </td>
+                          <td>{item.attemptedAt}</td>
+                          <td>
+                            <button
+                              className="btn btn-outline-primary btn-sm"
+                              onClick={() => handlePrint(item)}
+                            >
+                              Print
+                            </button>
+                          </td>
+                        </tr>
+                      ))
+                    ) : (
+                      <tr>
+                        <td colSpan="10" className="text-muted">
+                          No records found
+                        </td>
+                      </tr>
+                    )}
+                  </tbody>
+                </table>
+              </div>
+
+            </div>
+          </div>
         </div>
       </div>
+
     </div>
+
   );
 };
 

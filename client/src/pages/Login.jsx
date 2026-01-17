@@ -36,196 +36,124 @@ const Login = () => {
 
   const styles = {
     page: {
-      height: "100vh",
+      minHeight: "100vh",
+      background:
+        "linear-gradient(135deg, #4a3365, #ac66e9, #3c2e58)",
       display: "flex",
-      justifyContent: "center",
       alignItems: "center",
-      background: "linear-gradient(135deg, #4a3365ff, #ac66e9ff, #3c2e58ff)",
-      fontFamily: "Segoe UI, sans-serif"
+      padding: "20px",
     },
     card: {
-      width: "900px",
-      height: "520px",
-      display: "flex",
       borderRadius: "18px",
       overflow: "hidden",
       boxShadow: "0 25px 60px rgba(0,0,0,0.35)",
-      backgroundColor: "#fff"
     },
     leftPanel: {
-      flex: 1,
-      background: "linear-gradient(135deg, #570c78ff, #593a78, #8b44d2ff)",
+      background:
+        "linear-gradient(135deg, #570c78, #593a78, #8b44d2)",
       color: "#fff",
-      display: "flex",
-      flexDirection: "column",
-      justifyContent: "center",
-      alignItems: "center",
-      position: "relative",
-      padding: "30px"
-    },
-    abstractCircles: {
-      position: "absolute",
-      borderRadius: "50%",
-      background: "rgba(239, 104, 248, 0.15)",
-      zIndex: 0
-    },
-    bigCircle: {
-      width: "140px",
-      height: "140px",
-      top: "18%",
-      left: "10%"
-    },
-    smallCircle: {
-      width: "90px",
-      height: "90px",
-      bottom: "12%",
-      right: "10%"
-    },
-    subheading: {
-      color: "#d4a3ffff",
-      fontSize: "30px",
-      marginBottom: "1px"
-    },
-    welcomeText: {
-      fontSize: "20px",
-      fontWeight: "600",
-      marginBottom: "5px",
-      zIndex: 1,
-      color: "#9582bcff"
-    },
-    subText: {
-      fontSize: "15px",
-      opacity: 0.9,
-      zIndex: 1,
-      textAlign: "center"
+      textAlign: "center",
+      padding: "40px 20px",
     },
     rightPanel: {
-      flex: 1,
-      backgroundColor: "#fff",
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-      padding: "30px"
-    },
-    formBox: {
-      width: "100%",
-      maxWidth: "300px"
+      padding: "40px 25px",
     },
     heading: {
-      fontSize: "40px",
-      marginBottom: "2px",
-      fontWeight: "600",
-      display: "inline-block",
+      fontSize: "36px",
+      fontWeight: "700",
+      color: "#4a0b65",
       borderBottom: "4px solid",
-      color: "#4a0b65ff"
-    },
-    label: {
-      fontSize: "15px",
-      fontWeight: "500",
-      marginBottom: "1px"
+      display: "inline-block",
+      marginBottom: "25px",
     },
     input: {
-      width: "100%",
-      padding: "10px 8px",
-      border: "1px solid #ccc",
+      padding: "10px",
       borderRadius: "6px",
+      border: "1px solid #ccc",
       fontSize: "14px",
-      marginBottom: "10px",
-      outline: "none"
     },
     submitBtn: {
-      width: "100%",
-      padding: "11px",
-      border: "none",
-      borderRadius: "6px",
-      background: "linear-gradient(to right, #3a0451ff, #7827c0ff)",
+      background:
+        "linear-gradient(to right, #3a0451, #7827c0)",
       color: "#fff",
-      fontSize: "15px",
       fontWeight: "600",
-      cursor: "pointer",
-      marginBottom: "10px",
-      marginTop: "5px"
+      border: "none",
+      padding: "10px",
+      borderRadius: "6px",
+      width: "100%",
     },
-    checkbox: {
-      marginTop: "8px",
-      fontSize: "13px"
-    }
   };
 
   return (
     <div style={styles.page}>
-      <div style={styles.card}>
-        {/* Left Panel */}
-        <div style={styles.leftPanel}>
-          <img
-            src={loginImage}
-            alt="Login Illustration"
-            style={{ width: "340px", marginBottom: "5px", zIndex: 1 }}
-          />
+      <div className="container">
+        <div className="row justify-content-center">
+          <div className="col-12 col-lg-10">
+            <div className="card" style={styles.card}>
+              <div className="row g-0">
 
-          <div style={styles.subheading}>Welcome to Examprep! </div>
-          <div style={styles.welcomeText}>"Your Journey Starts Here"</div>
-          <div style={styles.subText}>
-            "Login to view your exams, results, and profile — all in one smart dashboard."
-          </div>
-        </div>
+                {/* LEFT PANEL */}
+                <div className="col-12 col-md-6" style={styles.leftPanel}>
+                  <img
+                    src={loginImage}
+                    alt="login"
+                    className="img-fluid mb-3"
+                    style={{ maxWidth: "300px" }}
+                  />
+                  <h4 className="fw-bold">Welcome to ExamPrep</h4>
+                  <p className="opacity-75">
+                    Login to access exams, results and dashboard
+                  </p>
+                </div>
 
-        {/* Right Panel */}
-        <div style={styles.rightPanel}>
-          <form onSubmit={handleSubmit} style={styles.formBox} method="POST">
-            <div style={{ textAlign: "center" }}>
-              <div className="border-b-2" style={styles.heading}>
-                User Login
+                {/* RIGHT PANEL */}
+                <div className="col-12 col-md-6 bg-white" style={styles.rightPanel}>
+                  <form onSubmit={handleSubmit}>
+                    <div className="text-center">
+                      <div style={styles.heading}>User Login</div>
+                    </div>
+
+                    <label>Email</label>
+                    <input
+                      type="email"
+                      className="form-control mb-3"
+                      style={styles.input}
+                      name="email"
+                      value={data.email}
+                      onChange={handleChange}
+                      required
+                    />
+
+                    <label>Password</label>
+                    <input
+                      type="password"
+                      className="form-control mb-3"
+                      style={styles.input}
+                      name="password"
+                      value={data.password}
+                      onChange={handleChange}
+                      required
+                    />
+
+                    <button type="submit" style={styles.submitBtn}>
+                      Login
+                    </button>
+
+                    <div className="mt-3 text-center small">
+                      Don’t have an account?{" "}
+                      <Link to="/register">Register</Link>
+                    </div>
+
+                    <div className="text-center small mt-1">
+                      Are you admin?{" "}
+                      <Link to="/adlogin">Admin Login</Link>
+                    </div>
+                  </form>
+                </div>
+
               </div>
             </div>
-            <br />
-
-            <label htmlFor="email" style={styles.label}>
-              Email
-            </label>
-            <input
-              type="email"
-              name="email"
-              placeholder="Enter email"
-              required
-              onChange={handleChange}
-              value={data.email}
-              style={styles.input}
-            />
-
-            <label htmlFor="password" style={styles.label}>
-              Password
-            </label>
-            <input
-              type="password"
-              name="password"
-              placeholder="••••••"
-              required
-              onChange={handleChange}
-              value={data.password}
-              style={styles.input}
-            />
-
-            <button type="submit" style={styles.submitBtn}>
-              Login
-            </button>
-
-            <div style={styles.checkbox}>
-              <input type="checkbox" id="exampleCheck1" />
-              <label htmlFor="exampleCheck1">
-                {" "}
-                Don't have an account? <Link to="/register">Register here</Link>.
-              </label>
-            </div>
-
-            <div style={styles.checkbox}>
-              <input type="checkbox" id="exampleCheck1" />
-              <label htmlFor="exampleCheck1">
-                {" "}
-                Are you admin? <Link to="/adlogin">Admin Login</Link>.
-              </label>
-            </div>
-          </form>
+          </div>
         </div>
       </div>
     </div>

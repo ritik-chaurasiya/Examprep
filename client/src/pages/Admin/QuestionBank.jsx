@@ -117,143 +117,260 @@ const QuestionBank = () => {
   const totalPages = Math.ceil(filteredData.length / perPage);
 
   return (
-    <div className="container-fluid p-0">
+    <div className="container-fluid p-2">
+
+      {/* ================= ADD / EDIT QUESTION ================= */}
       <div className="row">
-        <div className="col-sm-12">
-          <div className="card" style={{ border: "1px solid #6f42c1", minHeight: "220px", width: "100%" }}>
-            <form onSubmit={handleSubmit} className="border p-2 rounded">
-              <div className="row">
-                <div className="col-sm-12 ">
-                  <h5 className="fw-bold" style={{ color: "#6f42c1" }}>
-                    <i className="fa-solid fa-plus" style={{ marginRight: "8px" }}></i>
-                    {editform ? 'Edit Question' : 'Add Question'}
-                  </h5>
-                </div>
-              </div>
-              <div className="row">
-                <div className="col-sm-12">
-                  <h5 className="mt-1">Question</h5>
+        <div className="col-12">
+          <div className="card border border-2" style={{ borderColor: "#6f42c1" }}>
+            <div className="card-body">
+
+              <form onSubmit={handleSubmit}>
+                <h5 className="fw-bold mb-3" style={{ color: "#6f42c1" }}>
+                  <i className="fa-solid fa-plus me-2"></i>
+                  {editform ? "Edit Question" : "Add Question"}
+                </h5>
+
+                {/* Question */}
+                <div className="mb-3">
+                  <label className="fw-semibold">Question</label>
                   <textarea
                     name="question"
                     value={formData.question}
                     onChange={handleChange}
-                    required
                     className="form-control"
                     placeholder="Enter Question Here"
-                  ></textarea>
+                    required
+                  />
                 </div>
-              </div>
-              <div className="row mt-1">
-                <div className="col-sm-6">
-                  <input type="text" name="optionA" placeholder="a.) Option 1" className="form-control" value={formData.optionA} onChange={handleChange} required />
+
+                {/* Options A & B */}
+                <div className="row g-2">
+                  <div className="col-12 col-md-6">
+                    <input
+                      type="text"
+                      name="optionA"
+                      className="form-control"
+                      placeholder="a.) Option 1"
+                      value={formData.optionA}
+                      onChange={handleChange}
+                      required
+                    />
+                  </div>
+                  <div className="col-12 col-md-6">
+                    <input
+                      type="text"
+                      name="optionB"
+                      className="form-control"
+                      placeholder="b.) Option 2"
+                      value={formData.optionB}
+                      onChange={handleChange}
+                      required
+                    />
+                  </div>
                 </div>
-                <div className="col-sm-6">
-                  <input type="text" name="optionB" placeholder="b.) Option 2" className="form-control" value={formData.optionB} onChange={handleChange} required />
+
+                {/* Options C & D */}
+                <div className="row g-2 mt-2">
+                  <div className="col-12 col-md-6">
+                    <input
+                      type="text"
+                      name="optionC"
+                      className="form-control"
+                      placeholder="c.) Option 3"
+                      value={formData.optionC}
+                      onChange={handleChange}
+                      required
+                    />
+                  </div>
+                  <div className="col-12 col-md-6">
+                    <input
+                      type="text"
+                      name="optionD"
+                      className="form-control"
+                      placeholder="d.) Option 4"
+                      value={formData.optionD}
+                      onChange={handleChange}
+                      required
+                    />
+                  </div>
                 </div>
-              </div>
-              <div className="row mt-1">
-                <div className="col-sm-6">
-                  <input type="text" name="optionC" placeholder="c.) Option 3" className="form-control" value={formData.optionC} onChange={handleChange} required />
+
+                {/* Correct Answer + Subject */}
+                <div className="row g-2 mt-2">
+                  <div className="col-12 col-md-6">
+                    <input
+                      name="correctAnswer"
+                      className="form-control"
+                      placeholder="Correct Option"
+                      value={formData.correctAnswer}
+                      onChange={handleChange}
+                      required
+                    />
+                  </div>
+                  <div className="col-12 col-md-6">
+                    <select
+                      name="subject"
+                      value={formData.subject}
+                      onChange={handleChange}
+                      className="form-select"
+                      required
+                    >
+                      <option value="">Select Subject</option>
+                      {subjects.map((sub) => (
+                        <option key={sub._id} value={sub._id}>
+                          {sub.subjectname}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
                 </div>
-                <div className="col-sm-6">
-                  <input type="text" name="optionD" placeholder="d.) Option 4" className="form-control" value={formData.optionD} onChange={handleChange} required />
+
+                {/* Submit */}
+                <button
+                  type="submit"
+                  className="btn text-white mt-3"
+                  style={{ background: "#39064fff" }}
+                >
+                  {editform ? "Update Question" : "Add Question"}
+                </button>
+              </form>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* ================= QUESTION LIST ================= */}
+      <div className="row mt-3">
+        <div className="col-12">
+          <div className="card border border-2" style={{ borderColor: "#6f42c1" }}>
+            <div className="card-body">
+
+              {/* Header */}
+              <div className="row g-2 align-items-center mb-3">
+                <div className="col-12 col-md-6">
+                  <h3 className="fw-bold mb-0" style={{ color: "#6f42c1" }}>
+                    Question List
+                  </h3>
                 </div>
-              </div>
-              <div className="row mt-1">
-                <div className="col-sm-6">
-                  <input name="correctAnswer" className="form-control" placeholder="Correct Option" value={formData.correctAnswer} onChange={handleChange} required />
+
+                <div className="col-12 col-md-3">
+                  <input
+                    type="text"
+                    className="form-control"
+                    placeholder="Search..."
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                  />
                 </div>
-                <div className="col-sm-6">
-                  <select name="subject" value={formData.subject} onChange={handleChange} className="form-select" required>
-                    <option value="">Select Subject</option>
-                    {subjects.map((sub) => (
-                      <option key={sub._id} value={sub._id}>{sub.subjectname}</option>
-                    ))}
+
+                <div className="col-12 col-md-3">
+                  <select
+                    className="form-select"
+                    value={perPage}
+                    onChange={(e) => {
+                      setPerPage(Number(e.target.value));
+                      setCurrentPage(1);
+                    }}
+                  >
+                    <option value="5">5 per page</option>
+                    <option value="10">10 per page</option>
+                    <option value="20">20 per page</option>
                   </select>
                 </div>
               </div>
-              <button type="submit" className="btn btn-light text-white mt-1" style={{ background: "#39064fff " }}>
-                {editform ? "Update Question" : "Add Question"}
-              </button>
-            </form>
+
+              {/* Table */}
+              <div className="table-responsive">
+                <table className="table table-bordered table-hover text-center align-middle">
+                  <thead style={{ background: "#f2e6ff" }}>
+                    <tr>
+                      <th>S.No.</th>
+                      <th>Question</th>
+                      <th>Subject</th>
+                      <th>Option 1</th>
+                      <th>Option 2</th>
+                      <th>Option 3</th>
+                      <th>Option 4</th>
+                      <th>Correct</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+
+                  <tbody>
+                    {currentData.length > 0 ? (
+                      currentData.map((q, index) => (
+                        <tr key={q._id}>
+                          <td>{indexOfFirst + index + 1}</td>
+                          <td className="text-start">{q.question}</td>
+                          <td>{q.subject?.subjectname}</td>
+                          <td>{q.optionA}</td>
+                          <td>{q.optionB}</td>
+                          <td>{q.optionC}</td>
+                          <td>{q.optionD}</td>
+                          <td>{q.correctAnswer}</td>
+                          <td>
+                            <div className="d-flex flex-wrap gap-2 justify-content-center">
+                              <button
+                                className="btn btn-warning btn-sm"
+                                onClick={() => handleEdit(q)}
+                              >
+                                Edit
+                              </button>
+                              <button
+                                className="btn btn-danger btn-sm"
+                                onClick={() => handleDelete(q._id)}
+                              >
+                                Delete
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                      ))
+                    ) : (
+                      <tr>
+                        <td colSpan="9" className="text-muted">
+                          No matching records found
+                        </td>
+                      </tr>
+                    )}
+                  </tbody>
+                </table>
+              </div>
+
+              {/* Pagination */}
+              <div className="d-flex justify-content-between align-items-center mt-3">
+                <button
+                  className="btn text-white"
+                  style={{ background: "#39064fff" }}
+                  disabled={currentPage === 1}
+                  onClick={() => setCurrentPage((p) => p - 1)}
+                >
+                  Previous
+                </button>
+
+                <span className="fw-semibold">
+                  Page {currentPage} of {totalPages}
+                </span>
+
+                <button
+                  className="btn text-white"
+                  style={{ background: "#39064fff" }}
+                  disabled={currentPage === totalPages}
+                  onClick={() => setCurrentPage((p) => p + 1)}
+                >
+                  Next
+                </button>
+              </div>
+
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Question List */}
-      <div className="card mx-auto mt-2" style={{ border: "1px solid #6f42c1", width: "100%" }}>
-        <div className="card-body">
-          <div className="row mb-3">
-            <div className="col-sm-6">
-              <h3 className="fw-bold" style={{ color: "#6f42c1" }}>Question List</h3>
-            </div>
-            <div className="col-sm-3">
-              <input
-                type="text"
-                className="form-control"
-                placeholder="Search..."
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-              />
-            </div>
-            <div className="col-sm-3">
-              <select className="form-select" value={perPage} onChange={(e) => { setPerPage(Number(e.target.value)); setCurrentPage(1); }}>
-                <option value="5">5 per page</option>
-                <option value="10">10 per page</option>
-                <option value="20">20 per page</option>
-              </select>
-            </div>
-          </div>
-
-          <table className="table table-bordered text-center">
-            <thead className="thead-light-purple">
-              <tr>
-                <th>S.No.</th>
-                <th>Question</th>
-                <th>Subject</th>
-                <th>Option 1</th>
-                <th>Option 2</th>
-                <th>Option 3</th>
-                <th>Option 4</th>
-                <th>Correct Option</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {currentData.length > 0 ? (
-                currentData.map((q, index) => (
-                  <tr key={q._id}>
-                    <td>{indexOfFirst + index + 1}</td>
-                    <td>{q.question}</td>
-                    <td>{q.subject?.subjectname}</td>
-                    <td>{q.optionA}</td>
-                    <td>{q.optionB}</td>
-                    <td>{q.optionC}</td>
-                    <td>{q.optionD}</td>
-                    <td>{q.correctAnswer}</td>
-                    <td>
-                      <button className="btn-edit me-2 m-1" onClick={() => handleEdit(q)}>Edit</button>
-                      <button className="btn-delete m-1" onClick={() => handleDelete(q._id)}>Delete</button>
-                    </td>
-                  </tr>
-                ))
-              ) : (
-                <tr>
-                  <td colSpan="9">No matching records found</td>
-                </tr>
-              )}
-            </tbody>
-          </table>
-
-          {/* Pagination Controls */}
-          <div className="d-flex justify-content-between">
-            <button className="btn text-white mt-1" style={{ background: "#39064fff " }} disabled={currentPage === 1} onClick={() => setCurrentPage(prev => prev - 1)}>Previous</button>
-            <span>Page {currentPage} of {totalPages}</span>
-            <button className="btn btn-light text-white mt-1" style={{ background: "#39064fff " }} disabled={currentPage === totalPages} onClick={() => setCurrentPage(prev => prev + 1)}>Next</button>
-          </div>
-        </div>
-      </div>
     </div>
+
   );
 };
 

@@ -15,42 +15,78 @@ const MyExam = () => {
   }, []);
 
   return (
-    <div className='container-fluid p-0'>
-       <div className="card mx-auto mt-2 "  style={{
-                border: "1px solid #6f42c1",
-                width: "100%",
-              }}>
-        <div className="card-body">
-          <h3 className="fw-bold" style={{ color: "#6f42c1" }}>Question List</h3>
-          <table className="table table-bordered text-center">
-            <thead className="thead-light-purple">
-              <tr>
-                <th>S.No.</th>
-                <th>Exam name</th>
-                <th>Date Of Exam</th>
-                <th>Time</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {exam.map((item , i)=>(
-                <tr key={item._id}>
-                <td>{i+1}</td>
-                <td>{item.title}</td>
-                <td>{new Date(item.date).toLocaleDateString()}</td>
-                <td>{item.time}</td>
-                <td>
-                 <Link to={`/userdash/getexam/${item._id}`} className='btn-delete text-decoration-none'>Start Exam</Link>
+    <div className="container-fluid p-2">
+      <div className="row justify-content-center">
+        <div className="col-12">
 
-                </td>
-              </tr>
+          <div
+            className="card border border-2 mt-2"
+            style={{ borderColor: "#6f42c1" }}
+          >
+            <div className="card-body">
 
-              ))}
-            </tbody>
-          </table>
+              {/* Heading */}
+              <div className="row mb-3">
+                <div className="col-12">
+                  <h3 className="fw-bold mb-0" style={{ color: "#6f42c1" }}>
+                    Question List
+                  </h3>
+                </div>
+              </div>
+
+              {/* Responsive Table */}
+              <div className="table-responsive">
+                <table className="table table-bordered table-hover align-middle text-center">
+                  <thead style={{ background: "#f3e8ff" }}>
+                    <tr>
+                      <th>S.No.</th>
+                      <th>Exam Name</th>
+                      <th>Date Of Exam</th>
+                      <th>Time</th>
+                      <th style={{ minWidth: "140px" }}>Action</th>
+                    </tr>
+                  </thead>
+
+                  <tbody>
+                    {exam.length > 0 ? (
+                      exam.map((item, i) => (
+                        <tr key={item._id}>
+                          <td>{i + 1}</td>
+                          <td className="fw-semibold">
+                            {item.title}
+                          </td>
+                          <td>
+                            {new Date(item.date).toLocaleDateString()}
+                          </td>
+                          <td>{item.time}</td>
+                          <td>
+                            <Link
+                              to={`/userdash/getexam/${item._id}`}
+                              className="btn btn-sm btn-primary text-decoration-none"
+                            >
+                              Start Exam
+                            </Link>
+                          </td>
+                        </tr>
+                      ))
+                    ) : (
+                      <tr>
+                        <td colSpan="5" className="text-muted">
+                          No exams available
+                        </td>
+                      </tr>
+                    )}
+                  </tbody>
+                </table>
+              </div>
+
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
+
   )
 }
 

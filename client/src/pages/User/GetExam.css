@@ -2,47 +2,40 @@
   max-width: 900px;
 }
 
-.sticky-timer {
-  position: sticky;
-  top: 0;
-  background: #fff;
-  padding: 10px 15px;
-  z-index: 1000;
-  border-left: 5px solid #dc3545;
-  font-size: 18px;
-}
-
-.exam-title {
-  font-size: 28px;
-  font-weight: bold;
-  color: #0d6efd;
+.info-box {
+  padding: 12px;
+  border-radius: 8px;
+  background: #f8f9fa;
 }
 
 .question-card {
   border-left: 5px solid #0d6efd;
-  transition: transform 0.2s;
+  transition: transform 0.2s ease;
 }
+
 .question-card:hover {
   transform: scale(1.01);
 }
 
-.question-text {
-  font-size: 18px;
-  margin-bottom: 15px;
+.option-item {
+  padding: 10px 12px;
+  border: 1px solid #dee2e6;
+  border-radius: 6px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: all 0.2s;
 }
 
-.option-item {
-  padding: 8px 12px;
-  border: 1px solid #ddd;
-  margin-bottom: 8px;
-  border-radius: 6px;
-  transition: all 0.2s;
-  cursor: pointer;
-}
 .option-item:hover {
-  background: #f8f9fa;
+  background-color: #f1f3f5;
 }
-.option-label {
-  margin-left: 6px;
-  cursor: pointer;
+
+@media (max-width: 576px) {
+  h2 {
+    font-size: 22px;
+  }
+
+  .btn-lg {
+    width: 100%;
+  }
 }

@@ -91,102 +91,197 @@ const Examinee = () => {
 
   return (
     <>
-     <div className='container-fluid p-0'>
-       {editFormVisible && (
-       <div className="card" style={{ border: "1px solid #6f42c1", width: "100%" }}>
-          <div className="card-body">
-            <h3 className="fw-bold" style={{ color: "#6f42c1" }}>Edit Examinee</h3>
-            <form className="border p-2 rounded" onSubmit={handleSubmit}>
-              <div className="row mb-2">
-                <div className="col-sm-4">
-                  <input className="form-control" name="name" value={form.name} onChange={handleChange} placeholder="Name" required />
-                </div>
-                <div className="col-sm-4">
-                  <input className="form-control" name="email" value={form.email} onChange={handleChange} placeholder="Email" required />
-                </div>
-                <div className="col-sm-4">
-                  <input className="form-control" name="number" value={form.number} onChange={handleChange} placeholder="Number" required />
-                </div>
-              </div>
-              <div className="row mb-2">
-                <div className="col-sm-4">
-                  <input className="form-control" name="address" value={form.address} onChange={handleChange} placeholder="Address" />
-                </div>
-                <div className="col-sm-4">
-                  <input className="form-control" name="college" value={form.college} onChange={handleChange} placeholder="College" />
-                </div>
-                <div className="col-sm-4">
-                  <input className="form-control" name="qualification" value={form.qualification} onChange={handleChange} placeholder="Qualification" />
-                </div>
-              </div>
-              <button type="submit" className="btn btn-light text-white mb-1 me-2" style={{ background: "#39064fff " }}>Update</button>
-              <button type="button" className="btn-edit" onClick={() => setEditFormVisible(false)}>Cancel</button>
-            </form>
-          </div>
-        </div>
-      )}
+      <div className="container-fluid p-2">
 
-      <div className="card mx-auto mt-2" style={{ border: "1px solid #6f42c1", width: "100%" }}>
-        <div className="card-body">
+        {/* ================= EDIT EXAMINEE FORM ================= */}
+        {editFormVisible && (
           <div className="row mb-3">
-            <div className="col-sm-6">
-              <h3 className="fw-bold" style={{ color: "#6f42c1" }}>Examinee Details</h3>
-            </div>
-            <div className="col-sm-6 text-end">
-              <input
-                type="text"
-                className="form-control"
-                placeholder="Search examinee..."
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-              />
+            <div className="col-12">
+              <div className="card border border-2" style={{ borderColor: "#6f42c1" }}>
+                <div className="card-body">
+                  <h3 className="fw-bold mb-3" style={{ color: "#6f42c1" }}>
+                    Edit Examinee
+                  </h3>
+
+                  <form onSubmit={handleSubmit}>
+                    <div className="row g-2 mb-2">
+                      <div className="col-12 col-md-4">
+                        <input
+                          className="form-control"
+                          name="name"
+                          value={form.name}
+                          onChange={handleChange}
+                          placeholder="Name"
+                          required
+                        />
+                      </div>
+
+                      <div className="col-12 col-md-4">
+                        <input
+                          className="form-control"
+                          name="email"
+                          value={form.email}
+                          onChange={handleChange}
+                          placeholder="Email"
+                          required
+                        />
+                      </div>
+
+                      <div className="col-12 col-md-4">
+                        <input
+                          className="form-control"
+                          name="number"
+                          value={form.number}
+                          onChange={handleChange}
+                          placeholder="Number"
+                          required
+                        />
+                      </div>
+                    </div>
+
+                    <div className="row g-2 mb-3">
+                      <div className="col-12 col-md-4">
+                        <input
+                          className="form-control"
+                          name="address"
+                          value={form.address}
+                          onChange={handleChange}
+                          placeholder="Address"
+                        />
+                      </div>
+
+                      <div className="col-12 col-md-4">
+                        <input
+                          className="form-control"
+                          name="college"
+                          value={form.college}
+                          onChange={handleChange}
+                          placeholder="College"
+                        />
+                      </div>
+
+                      <div className="col-12 col-md-4">
+                        <input
+                          className="form-control"
+                          name="qualification"
+                          value={form.qualification}
+                          onChange={handleChange}
+                          placeholder="Qualification"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="d-flex flex-wrap gap-2">
+                      <button
+                        type="submit"
+                        className="btn text-white"
+                        style={{ background: "#39064fff" }}
+                      >
+                        Update
+                      </button>
+
+                      <button
+                        type="button"
+                        className="btn btn-outline-secondary"
+                        onClick={() => setEditFormVisible(false)}
+                      >
+                        Cancel
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
             </div>
           </div>
+        )}
 
-          <div className="row">
-            <div className="col-sm-12">
-              <table className="table table-bordered text-center">
-                <thead className="thead-light-purple">
-                  <tr>
-                    <th>S.No.</th>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Number</th>
-                    <th>Address</th>
-                    <th>College</th>
-                    <th>Qualification</th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {filteredData.length > 0 ? (
-                    filteredData.map((item, i) => (
-                      <tr key={item._id }>
-                        <td>{i + 1}</td>
-                        <td>{item.name}</td>
-                        <td>{item.email}</td>
-                        <td>{item.number}</td>
-                        <td>{item.address}</td>
-                        <td>{item.college}</td>
-                        <td>{item.qualification}</td>
-                        <td>
-                          <button className="btn-edit me-2" onClick={() => handleEdit(item)}>Edit</button>
-                          <button className="btn-delete" onClick={() => handleDelete(item._id)}>Delete</button>
-                        </td>
+        {/* ================= EXAMINEE TABLE ================= */}
+        <div className="row">
+          <div className="col-12">
+            <div className="card border border-2" style={{ borderColor: "#6f42c1" }}>
+              <div className="card-body">
+
+                <div className="row align-items-center mb-3 g-2">
+                  <div className="col-12 col-md-6">
+                    <h3 className="fw-bold mb-0" style={{ color: "#6f42c1" }}>
+                      Examinee Details
+                    </h3>
+                  </div>
+
+                  <div className="col-12 col-md-6">
+                    <input
+                      type="text"
+                      className="form-control"
+                      placeholder="Search examinee..."
+                      value={search}
+                      onChange={(e) => setSearch(e.target.value)}
+                    />
+                  </div>
+                </div>
+
+                <div className="table-responsive">
+                  <table className="table table-bordered table-hover text-center align-middle">
+                    <thead style={{ background: "#f2e6ff" }}>
+                      <tr>
+                        <th>S.No.</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Number</th>
+                        <th>Address</th>
+                        <th>College</th>
+                        <th>Qualification</th>
+                        <th>Action</th>
                       </tr>
-                    ))
-                  ) : (
-                    <tr>
-                      <td colSpan="8">No matching records found</td>
-                    </tr>
-                  )}
-                </tbody>
-              </table>
+                    </thead>
+
+                    <tbody>
+                      {filteredData.length > 0 ? (
+                        filteredData.map((item, i) => (
+                          <tr key={item._id}>
+                            <td>{i + 1}</td>
+                            <td>{item.name}</td>
+                            <td>{item.email}</td>
+                            <td>{item.number}</td>
+                            <td>{item.address}</td>
+                            <td>{item.college}</td>
+                            <td>{item.qualification}</td>
+                            <td>
+                              <div className="d-flex flex-wrap gap-2 justify-content-center">
+                                <button
+                                  className="btn btn-warning btn-sm"
+                                  onClick={() => handleEdit(item)}
+                                >
+                                  Edit
+                                </button>
+                                <button
+                                  className="btn btn-danger btn-sm"
+                                  onClick={() => handleDelete(item._id)}
+                                >
+                                  Delete
+                                </button>
+                              </div>
+                            </td>
+                          </tr>
+                        ))
+                      ) : (
+                        <tr>
+                          <td colSpan="8" className="text-muted">
+                            No matching records found
+                          </td>
+                        </tr>
+                      )}
+                    </tbody>
+                  </table>
+                </div>
+
+              </div>
             </div>
           </div>
         </div>
+
       </div>
-     </div>
+
+
     </>
   );
 };

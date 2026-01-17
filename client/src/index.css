@@ -220,3 +220,17 @@ body {
   border: 1px solid #ddd;
   margin-right: 10px;
 }
+
+
+
+/* User home */
+
+.dashboard-bg {
+  min-height: 100vh;
+  background: linear-gradient(rgba(255, 255, 255, 0.7),
+      rgba(255, 255, 255, 0.9)),
+    url("https://images.unsplash.com/photo-1522202176988-66273c2fd55f");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}

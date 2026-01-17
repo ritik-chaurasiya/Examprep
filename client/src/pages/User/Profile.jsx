@@ -89,96 +89,116 @@ const Profile = () => {
   };
 
   return (
-    <div className="container my-4">
-      {/* Profile Section */}
-      <div className="card shadow-sm mb-4 profile-card">
-        <div className="card-body d-flex align-items-center">
-          <img
-            src={profilePic}
-            alt={`${formData.name}'s profile`}
-            className="profile-img"
-          />
-          <div className="ms-3">
-            <h5 className="mb-0">{formData.name}</h5>
-            <p className="text-muted mb-0">{formData.email}</p>
-            <label className="btn btn-sm btn-outline-primary mt-2">
-              Upload Photo{" "}
-              <input type="file" hidden onChange={handlePicUpload} accept="image/*" />
-            </label>
-          </div>
-        </div>
-      </div>
+    <div className="container-fluid px-2 px-md-4 my-4">
+      <div className="row justify-content-center">
+        <div className="col-12 col-lg-9 col-xl-8">
 
-      {/* Personal Info */}
-      <div className="card shadow-sm mb-4 profile-section">
-        <div className="card-body">
-          <div className="d-flex justify-content-between align-items-center mb-3">
-            <h6 className="mb-0">Personal Information</h6>
-            <button
-              className="btn btn-sm btn-warning"
-              onClick={() => {
-                if (personalEdit) handleSave();
-                setPersonalEdit(!personalEdit);
-              }}
-            >
-              {personalEdit ? "Save ✅" : "Edit ✏️"}
-            </button>
-          </div>
+          {/* ================= Profile Header ================= */}
+          <div className="card shadow-sm mb-4 profile-card">
+            <div className="card-body">
+              <div className="row align-items-center text-center text-md-start">
+                <div className="col-12 col-md-auto mb-3 mb-md-0">
+                  <img
+                    src={profilePic}
+                    alt={`${formData.name}'s profile`}
+                    className="profile-img mx-auto mx-md-0"
+                  />
+                </div>
 
-          <div className="row">
-            {["name", "email", "number", "college", "qualification"].map((field, i) => (
-              <div className="col-md-6 mb-3" key={i}>
-                <label htmlFor={field}>
-                  <strong>{labels[field]}</strong>
-                </label>
-                <input
-                  id={field}
-                  type="text"
-                  name={field}
-                  className="form-control"
-                  value={formData[field]}
-                  onChange={handleChange}
-                  disabled={!personalEdit}
-                />
+                <div className="col">
+                  <h5 className="mb-1">{formData.name}</h5>
+                  <p className="text-muted mb-2">{formData.email}</p>
+
+                  <label className="btn btn-sm btn-outline-primary">
+                    Upload Photo
+                    <input
+                      type="file"
+                      hidden
+                      onChange={handlePicUpload}
+                      accept="image/*"
+                    />
+                  </label>
+                </div>
               </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* Address Info */}
-      <div className="card shadow-sm profile-section">
-        <div className="card-body">
-          <div className="d-flex justify-content-between align-items-center mb-3">
-            <h6 className="mb-0">Address</h6>
-            <button
-              className="btn btn-sm btn-warning"
-              onClick={() => {
-                if (addressEdit) handleSave();
-                setAddressEdit(!addressEdit);
-              }}
-            >
-              {addressEdit ? "Save ✅" : "Edit ✏️"}
-            </button>
-          </div>
-
-          <div className="row">
-            <div className="col-md-12 mb-3">
-              <label htmlFor="address"><strong>Address</strong></label>
-              <input
-                id="address"
-                type="text"
-                name="address"
-                className="form-control"
-                value={formData.address}
-                onChange={handleChange}
-                disabled={!addressEdit}
-              />
             </div>
           </div>
+
+          {/* ================= Personal Info ================= */}
+          <div className="card shadow-sm mb-4 profile-section">
+            <div className="card-body">
+              <div className="d-flex justify-content-between align-items-center mb-3">
+                <h6 className="mb-0 fw-bold">Personal Information</h6>
+                <button
+                  className="btn btn-sm btn-warning"
+                  onClick={() => {
+                    if (personalEdit) handleSave();
+                    setPersonalEdit(!personalEdit);
+                  }}
+                >
+                  {personalEdit ? "Save ✅" : "Edit ✏️"}
+                </button>
+              </div>
+
+              <div className="row">
+                {["name", "email", "number", "college", "qualification"].map(
+                  (field, i) => (
+                    <div className="col-12 col-md-6 mb-3" key={i}>
+                      <label className="form-label fw-semibold">
+                        {labels[field]}
+                      </label>
+                      <input
+                        type="text"
+                        name={field}
+                        className="form-control"
+                        value={formData[field]}
+                        onChange={handleChange}
+                        disabled={!personalEdit}
+                      />
+                    </div>
+                  )
+                )}
+              </div>
+            </div>
+          </div>
+
+          {/* ================= Address ================= */}
+          <div className="card shadow-sm profile-section">
+            <div className="card-body">
+              <div className="d-flex justify-content-between align-items-center mb-3">
+                <h6 className="mb-0 fw-bold">Address</h6>
+                <button
+                  className="btn btn-sm btn-warning"
+                  onClick={() => {
+                    if (addressEdit) handleSave();
+                    setAddressEdit(!addressEdit);
+                  }}
+                >
+                  {addressEdit ? "Save ✅" : "Edit ✏️"}
+                </button>
+              </div>
+
+              <div className="row">
+                <div className="col-12">
+                  <label className="form-label fw-semibold">
+                    Address
+                  </label>
+                  <input
+                    type="text"
+                    name="address"
+                    className="form-control"
+                    value={formData.address}
+                    onChange={handleChange}
+                    disabled={!addressEdit}
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
+
   );
 };
 

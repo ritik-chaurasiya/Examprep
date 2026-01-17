@@ -68,48 +68,101 @@ const ContactA = () => {
   };
 
   return (
-    <div className="chat-container">
-      <div className="chat-header">Feedback Chat</div>
+    <div className="container-fluid p-2">
+      <div className="row justify-content-center">
+        <div className="col-12 col-md-8 col-lg-6">
 
-      <div className="chat-box">
-        {messages.length === 0 ? (
-          <div className="no-msg">No feedback yet</div>
-        ) : (
-          messages.map((msg) => (
-            <div key={msg._id} className="chat-message-container">
-              {/* User message */}
-              <div className="message user-message">
-                <p>{msg.question}</p>
-                <div className="msg-actions">
-                  <button className="btn-sm btn-warning" onClick={() => editMyMessage(msg._id, msg.question)}>✏️</button>
-                  <button className="btn-sm btn-danger" onClick={() => deleteByUser(msg._id)}>🗑</button>
-                </div>
-              </div>
-
-              {/* Admin reply */}
-              {msg.answer && (
-                <div className="message admin-message">
-                  <p>{msg.answer}</p>
-                </div>
-              )}
+          <div className="card shadow-sm">
+            {/* Header */}
+            <div
+              className="card-header text-white fw-bold text-center"
+              style={{ background: "#6f42c1" }}
+            >
+              Feedback Chat
             </div>
-          ))
-        )}
-        <div ref={messagesEndRef}></div>
-      </div>
 
-      {/* Input box */}
-      <form onSubmit={sendMessage} className="chat-input-container">
-        <input
-          type="text"
-          value={question}
-          onChange={(e) => setQuestion(e.target.value)}
-          placeholder="Type your feedback..."
-          className="chat-input"
-        />
-        <button type="submit" className="btn btn-primary">Send</button>
-      </form>
+            {/* Chat Box */}
+            <div
+              className="card-body overflow-auto"
+              style={{ height: "420px", background: "#f8f6ff" }}
+            >
+              {messages.length === 0 ? (
+                <div className="text-center text-muted">
+                  No feedback yet
+                </div>
+              ) : (
+                messages.map((msg) => (
+                  <div key={msg._id} className="mb-3">
+
+                    {/* User Message */}
+                    <div className="d-flex justify-content-end">
+                      <div className="bg-primary text-white p-2 rounded-3 w-75">
+                        <p className="mb-1">{msg.question}</p>
+
+                        <div className="d-flex gap-2 justify-content-end">
+                          <button
+                            className="btn btn-sm btn-warning"
+                            onClick={() =>
+                              editMyMessage(msg._id, msg.question)
+                            }
+                          >
+                            ✏️
+                          </button>
+                          <button
+                            className="btn btn-sm btn-danger"
+                            onClick={() => deleteByUser(msg._id)}
+                          >
+                            🗑
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Admin Reply */}
+                    {msg.answer && (
+                      <div className="d-flex justify-content-start mt-2">
+                        <div
+                          className="p-2 rounded-3 w-75"
+                          style={{ background: "#e9e3ff" }}
+                        >
+                          <p className="mb-0 text-dark">
+                            {msg.answer}
+                          </p>
+                        </div>
+                      </div>
+                    )}
+
+                  </div>
+                ))
+              )}
+
+              <div ref={messagesEndRef}></div>
+            </div>
+
+            {/* Input Box */}
+            <div className="card-footer">
+              <form
+                onSubmit={sendMessage}
+                className="d-flex gap-2"
+              >
+                <input
+                  type="text"
+                  value={question}
+                  onChange={(e) => setQuestion(e.target.value)}
+                  placeholder="Type your feedback..."
+                  className="form-control"
+                />
+                <button type="submit" className="btn btn-primary">
+                  Send
+                </button>
+              </form>
+            </div>
+          </div>
+
+        </div>
+      </div>
     </div>
+
   );
 };
 

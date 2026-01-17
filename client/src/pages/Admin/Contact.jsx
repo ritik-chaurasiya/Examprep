@@ -1,6 +1,6 @@
 // src/components/Contact.jsx
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 
 const Contact = () => {
   const [messages, setMessages] = useState([]);
@@ -8,107 +8,164 @@ const Contact = () => {
 
   const fetchAll = async () => {
     try {
-      const res = await axios.get('https://examprep-bxeo.onrender.com/api/message/all');
+      const res = await axios.get(
+        "https://examprep-bxeo.onrender.com/api/message/all"
+      );
       setMessages(res.data.message || []);
     } catch (err) {
-      console.error('Error fetching messages for admin:', err);
+      console.error("Error fetching messages for admin:", err);
     }
   };
-  
-  useEffect(() => { fetchAll(); }, []);
+
+  useEffect(() => {
+    fetchAll();
+  }, []);
 
   const handleReplyChange = (id, value) => {
     setReplyInputs((prev) => ({ ...prev, [id]: value }));
   };
 
   const sendReply = async (id) => {
-    const answer = (replyInputs[id] || '').trim();
-    if (!answer) return alert('Please type a reply.');
-    try {
-      await axios.put(`https://examprep-bxeo.onrender.com/api/message/reply/${id}`, {
-        answer,
-        role: 'admin'
-      });
-      setReplyInputs((prev) => ({ ...prev, [id]: '' }));
-      fetchAll();
-    } catch (err) {
-      console.error('Error sending reply:', err);
-    }
+    const answer = (replyInputs[id] || "").trim();
+    if (!answer) return alert("Please type a reply.");
+
+    await axios.put(
+      `https://examprep-bxeo.onrender.com/api/message/reply/${id}`,
+      { answer, role: "admin" }
+    );
+    setReplyInputs((prev) => ({ ...prev, [id]: "" }));
+    fetchAll();
   };
 
   const editReply = async (id, currentReply) => {
-    const newReply = prompt('Edit reply:', currentReply || '');
+    const newReply = prompt("Edit reply:", currentReply || "");
     if (newReply === null) return;
-    try {
-      await axios.put(`https://examprep-bxeo.onrender.com/api/message/reply/${id}`, {
-        answer: newReply,
-        role: 'admin'
-      });
-      fetchAll();
-    } catch (err) {
-      console.error('Error editing reply:', err);
-    }
+
+    await axios.put(
+      `https://examprep-bxeo.onrender.com/api/message/reply/${id}`,
+      { answer: newReply, role: "admin" }
+    );
+    fetchAll();
   };
 
   const deleteByAdmin = async (id) => {
-    if (!window.confirm('Delete this reply?')) return;
-    try {
-      await axios.put(`https://examprep-bxeo.onrender.com/api/message/delete/${id}`, {
-        role: 'admin'
-      });
-      fetchAll();
-    } catch (err) {
-      console.error('Error deleting reply:', err);
-    }
+    if (!window.confirm("Delete this reply?")) return;
+
+    await axios.put(
+      `https://examprep-bxeo.onrender.com/api/message/delete/${id}`,
+      { role: "admin" }
+    );
+    fetchAll();
   };
 
   return (
-    <div className="container p-3">
-      <h2>Admin - User Messages</h2>
-      <table className="table table-bordered text-center">
-        <thead className='thead-light-purple'>
-          <tr>
-            <th>S.No.</th>
-            <th>Examinee</th>
-            <th>Feedback</th>
-            <th>Admin Reply</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {messages.length === 0 ? (
-            <tr><td colSpan="5">No messages found</td></tr>
-          ) : (
-            messages.map((msg, idx) => (
-              <tr key={msg._id}>
-                <td>{idx + 1}</td>
-                <td>
-                  {msg.examineeId?.name || 'N/A'}
-                  <div style={{ fontSize: '0.85em', color: '#555' }}>
-                    {msg.examineeId?.email || ''}
-                  </div>
-                </td>
-                <td>{msg.question}</td>
-                <td>{msg.answer || 'No reply yet'}</td>
-                <td style={{ minWidth: 250 }}>
-                  <input
-                    type="text"
-                    placeholder="Type reply..."
-                    value={replyInputs[msg._id] || ''}
-                    onChange={(e) => handleReplyChange(msg._id, e.target.value)}
-                    className="form-control mb-1"
-                  />
-                  <div className="d-flex gap-1">
-                    <button className="btn btn-sm btn-secondary" onClick={() => sendReply(msg._id)}>Send Reply</button>
-                    <button className=" btn-sm btn-edit" onClick={() => editReply(msg._id, msg.answer)}>Edit Reply</button>
-                    <button className=" btn-sm btn-delete" onClick={() => deleteByAdmin(msg._id)}>Delete</button>
-                  </div>
+    <div
+      className="container-fluid p-4"
+      style={{ backgroundColor: "#faf8ff", minHeight: "100vh" }}
+    >
+      <h2
+        className="fw-bold mb-4"
+        style={{ color: "#6f42c1" }}
+      >
+        Admin – User Messages
+      </h2>
+
+      <div className="table-responsive shadow rounded">
+        <table className="table table-bordered table-hover align-middle mb-0">
+          <thead
+            style={{
+              backgroundColor: "#f2e6ff",
+              color: "#4a0b65",
+            }}
+          >
+            <tr className="text-center">
+              <th>S.No.</th>
+              <th>Examinee</th>
+              <th>Feedback</th>
+              <th>Admin Reply</th>
+              <th style={{ minWidth: "260px" }}>Actions</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            {messages.length === 0 ? (
+              <tr>
+                <td colSpan="5" className="text-center text-muted py-4">
+                  No messages found
                 </td>
               </tr>
-            ))
-          )}
-        </tbody>
-      </table>
+            ) : (
+              messages.map((msg, idx) => (
+                <tr key={msg._id}>
+                  <td className="text-center fw-semibold">
+                    {idx + 1}
+                  </td>
+
+                  <td>
+                    <div className="fw-semibold text-dark">
+                      {msg.examineeId?.name || "N/A"}
+                    </div>
+                    <small className="text-muted">
+                      {msg.examineeId?.email || ""}
+                    </small>
+                  </td>
+
+                  <td>{msg.question}</td>
+
+                  <td>
+                    {msg.answer ? (
+                      <span className="text-success fw-semibold">
+                        {msg.answer}
+                      </span>
+                    ) : (
+                      <span className="text-muted">
+                        No reply yet
+                      </span>
+                    )}
+                  </td>
+
+                  <td>
+                    <input
+                      type="text"
+                      placeholder="Type reply..."
+                      value={replyInputs[msg._id] || ""}
+                      onChange={(e) =>
+                        handleReplyChange(msg._id, e.target.value)
+                      }
+                      className="form-control form-control-sm mb-2"
+                    />
+
+                    <div className="d-flex flex-wrap gap-2 justify-content-center">
+                      <button
+                        className="btn btn-sm text-white"
+                        style={{ backgroundColor: "#6f42c1" }}
+                        onClick={() => sendReply(msg._id)}
+                      >
+                        Send
+                      </button>
+
+                      <button
+                        className="btn btn-sm text-dark"
+                        style={{ backgroundColor: "#ffb703" }}
+                        onClick={() => editReply(msg._id, msg.answer)}
+                      >
+                        Edit
+                      </button>
+
+                      <button
+                        className="btn btn-sm btn-danger"
+                        onClick={() => deleteByAdmin(msg._id)}
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              ))
+            )}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

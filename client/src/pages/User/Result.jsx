@@ -72,58 +72,98 @@ const Result = () => {
   }
 
   return (
-    <div className="row mt-1">
-      <div className="col-sm-12">
-        <div className="card mx-auto mt-2" style={{ border: "1px solid #6f42c1" }}>
-          <div className="card-body">
-            <div className="container p-0">
-              <h3 className="fw-bold" style={{ color: "#6f42c1" }}>Examinee Result</h3>
-              <table className="table table-bordered text-center">
-                <thead className="table-secondary">
-                  <tr>
-                    <td>S.N</td>
-                    <td>Exam name</td>
-                    <td>Your Name</td>
-                    <td>Total Marks</td>
-                    <td>Score</td>
-                    <td>Passing Marks</td>
-                    <td>Status</td>
-                    <td>Date</td>
-                    <td>Action</td>
-                  </tr>
-                </thead>
-                <tbody>
-                  {data.map((item, i) => (
-                    <tr key={item._id}>
-                      <td>{i + 1}</td>
-                      <td>{item.examId?.title}</td>
-                      <td>{item.examineeId?.name || item.examineeId}</td>
-                      <td>{item.totalMarks}</td>
-                      <td>{item.score}</td>
-                      <td>{item.passingMarks}</td>
-                      <td>
-                        <span className={`badge ${item.status === "Passed" ? "bg-success" : "bg-danger"}`}>
-                          {item.status}
-                        </span>
-                      </td>
-                      <td>{new Date(item.createdAt).toLocaleString()}</td>
-                      <td>
-                        <button
-                          className="btn btn-sm btn-primary"
-                          onClick={() => handlePrint(item)}
-                        >
-                          <i className="fa-solid fa-print me-1"></i> Print
-                        </button>
-                      </td>
+    <div className="container-fluid px-2 px-md-3 my-3">
+      <div className="row justify-content-center">
+        <div className="col-12">
+
+          <div
+            className="card shadow-sm border border-2"
+            style={{ borderColor: "#6f42c1" }}
+          >
+            <div className="card-body">
+
+              {/* Heading */}
+              <div className="row mb-3">
+                <div className="col-12">
+                  <h3 className="fw-bold mb-0" style={{ color: "#6f42c1" }}>
+                    Examinee Result
+                  </h3>
+                </div>
+              </div>
+
+              {/* Responsive Table */}
+              <div className="table-responsive">
+                <table className="table table-bordered table-hover align-middle text-center">
+                  <thead style={{ backgroundColor: "#f3e8ff" }}>
+                    <tr>
+                      <th>S.No.</th>
+                      <th>Exam Name</th>
+                      <th>Your Name</th>
+                      <th>Total Marks</th>
+                      <th>Score</th>
+                      <th>Passing Marks</th>
+                      <th>Status</th>
+                      <th>Date</th>
+                      <th style={{ minWidth: "120px" }}>Action</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+
+                  <tbody>
+                    {data.length > 0 ? (
+                      data.map((item, i) => (
+                        <tr key={item._id}>
+                          <td>{i + 1}</td>
+                          <td className="fw-semibold">
+                            {item.examId?.title}
+                          </td>
+                          <td>
+                            {item.examineeId?.name || item.examineeId}
+                          </td>
+                          <td>{item.totalMarks}</td>
+                          <td className="fw-bold">{item.score}</td>
+                          <td>{item.passingMarks}</td>
+                          <td>
+                            <span
+                              className={`badge ${item.status === "Passed"
+                                  ? "bg-success"
+                                  : "bg-danger"
+                                }`}
+                            >
+                              {item.status}
+                            </span>
+                          </td>
+                          <td>
+                            {new Date(item.createdAt).toLocaleString()}
+                          </td>
+                          <td>
+                            <button
+                              className="btn btn-sm btn-outline-primary"
+                              onClick={() => handlePrint(item)}
+                            >
+                              <i className="fa-solid fa-print me-1"></i>
+                              Print
+                            </button>
+                          </td>
+                        </tr>
+                      ))
+                    ) : (
+                      <tr>
+                        <td colSpan="9" className="text-muted">
+                          No results available
+                        </td>
+                      </tr>
+                    )}
+                  </tbody>
+                </table>
+              </div>
+
             </div>
           </div>
+
         </div>
       </div>
     </div>
+
   )
 }
 
