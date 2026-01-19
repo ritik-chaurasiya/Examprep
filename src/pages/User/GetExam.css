@@ -1,0 +1,41 @@
+.exam-container {
+  max-width: 900px;
+}
+
+.info-box {
+  padding: 12px;
+  border-radius: 8px;
+  background: #f8f9fa;
+}
+
+.question-card {
+  border-left: 5px solid #0d6efd;
+  transition: transform 0.2s ease;
+}
+
+.question-card:hover {
+  transform: scale(1.01);
+}
+
+.option-item {
+  padding: 10px 12px;
+  border: 1px solid #dee2e6;
+  border-radius: 6px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.option-item:hover {
+  background-color: #f1f3f5;
+}
+
+@media (max-width: 576px) {
+  h2 {
+    font-size: 22px;
+  }
+
+  .btn-lg {
+    width: 100%;
+  }
+}

@@ -1,0 +1,28 @@
+.profile-card,
+.profile-section {
+  border-radius: 12px;
+}
+
+.profile-img {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #dee2e6;
+}
+
+.form-control:disabled {
+  background-color: #f8f9fa;
+  color: #6c757d;
+}
+
+@media (max-width: 576px) {
+  .profile-img {
+    width: 75px;
+    height: 75px;
+  }
+
+  h5 {
+    font-size: 18px;
+  }
+}
