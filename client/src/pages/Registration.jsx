@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router";
+import { toast } from "react-toastify";
 
 const Registration = () => {
   const [formData, setFormData] = useState({
@@ -33,7 +34,7 @@ const Registration = () => {
         "https://examprep-bxeo.onrender.com/api/examinee",
         formData
       );
-      alert("Examinee Registered!");
+      toast.success("Examinee Registered!");
       setFormData({
         name: "",
         email: "",
@@ -45,194 +46,185 @@ const Registration = () => {
         session: "",
       });
     } catch {
-      alert("Registration Failed");
+      toast.error("Registration Failed");
     }
   };
 
   return (
-    <>
-      {/* INTERNAL CSS */}
-      <style>{`
-        .register-bg {
-          min-height: 100vh;
-          background: linear-gradient(135deg,#4a3365,#ac66e9,#3c2e58);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          padding: 20px;
-        }
 
-        .register-card {
-          border-radius: 18px;
-          overflow: hidden;
-          box-shadow: 0 25px 60px rgba(0,0,0,0.35);
-        }
+    <div
+      className="min-vh-100 d-flex align-items-center justify-content-center py-5"
+      style={{
+        background:
+          "linear-gradient(135deg, #0F172A 0%, #312E81 50%, #7C3AED 100%)"
+      }}
+    >
+      <div className="container">
+        <div
+          className="row justify-content-center"
+        >
+          <div className="col-lg-8 col-md-10">
+            <div
+              className="card border-0 shadow-lg rounded-4"
+              style={{
+                maxWidth: "850px",
+                width: "100%",
+                background: "rgba(255,255,255,.97)"
+              }}
+            >
+              <div className="card-body p-4 p-md-5">
 
-        .left-panel {
-          background: linear-gradient(135deg,#570c78,#593a78,#8b44d2);
-          color: white;
-        }
+                <div className="text-center mb-4">
+                  <h2 className="fw-bold text-dark">
+                    Create Account 
+                  </h2>
 
-        .left-panel h2 {
-          font-weight: 700;
-        }
-
-        .form-control, .form-select {
-          border-radius: 6px;
-        }
-
-        .register-btn {
-          background: linear-gradient(to right,#3a0451,#7827c0);
-          border: none;
-          font-weight: 600;
-        }
-
-        @media (max-width: 768px) {
-          .left-panel {
-            text-align: center;
-            padding: 30px 20px;
-          }
-        }
-      `}</style>
-
-      <div className="register-bg">
-        <div className="container">
-          <div className="row register-card bg-white">
-
-            {/* LEFT PANEL */}
-            <div className="col-lg-5 d-none d-lg-flex left-panel flex-column justify-content-center p-5">
-              <h2>Welcome to ExamPrep</h2>
-              <p className="mt-3">
-                Register now and unlock your personalized dashboard to manage
-                exams, results, and academic progress.
-              </p>
-            </div>
-
-            {/* RIGHT PANEL */}
-            <div className="col-lg-7 p-4 p-md-5">
-              <h3 className="text-center mb-4" style={{ color: "#4a0b65" }}>
-                Registration Page
-              </h3>
-
-              <form onSubmit={handleSubmit}>
-                <div className="row g-3">
-                  <div className="col-md-6">
-                    <input
-                      className="form-control"
-                      name="name"
-                      placeholder="Full Name"
-                      value={formData.name}
-                      onChange={handleChange}
-                      required
-                    />
-                  </div>
-
-                  <div className="col-md-6">
-                    <input
-                      className="form-control"
-                      name="email"
-                      type="email"
-                      placeholder="Email Address"
-                      value={formData.email}
-                      onChange={handleChange}
-                      required
-                    />
-                  </div>
-
-                  <div className="col-md-6">
-                    <input
-                      className="form-control"
-                      name="number"
-                      placeholder="Phone Number"
-                      value={formData.number}
-                      onChange={handleChange}
-                      required
-                    />
-                  </div>
-
-                  <div className="col-md-6">
-                    <select
-                      className="form-select"
-                      name="session"
-                      value={formData.session}
-                      onChange={handleChange}
-                      required
-                    >
-                      <option value="">Select Session</option>
-                      {sessions.map((s) => (
-                        <option key={s._id} value={s._id}>
-                          {s.name}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-
-                  <div className="col-12">
-                    <input
-                      type="password"
-                      className="form-control"
-                      name="password"
-                      placeholder="Password"
-                      value={formData.password}
-                      onChange={handleChange}
-                      required
-                    />
-                  </div>
-
-                  <div className="col-12">
-                    <textarea
-                      className="form-control"
-                      rows="3"
-                      name="address"
-                      placeholder="Address"
-                      value={formData.address}
-                      onChange={handleChange}
-                      required
-                    />
-                  </div>
-
-                  <div className="col-md-6">
-                    <input
-                      className="form-control"
-                      name="college"
-                      placeholder="College"
-                      value={formData.college}
-                      onChange={handleChange}
-                      required
-                    />
-                  </div>
-
-                  <div className="col-md-6">
-                    <input
-                      className="form-control"
-                      name="qualification"
-                      placeholder="Qualification"
-                      value={formData.qualification}
-                      onChange={handleChange}
-                      required
-                    />
-                  </div>
-
-                  <div className="col-12">
-                    <button
-                      type="submit"
-                      className="btn register-btn text-white w-100 py-2"
-                    >
-                      Register Here
-                    </button>
-                  </div>
+                  <p className="text-secondary">
+                    Start your learning journey with ExamPrep AI
+                  </p>
                 </div>
-              </form>
 
-              <p className="text-center mt-3">
-                Already have an account? <Link to="/">Login</Link>
-              </p>
+                <form onSubmit={handleSubmit}>
+                  <div className="row g-3">
+
+                    <div className="col-md-6">
+                      <input
+                        type="text"
+                        className="form-control form-control-lg rounded-3"
+                        placeholder="Full Name"
+                        name="name"
+                        value={formData.name}
+                        onChange={handleChange}
+                        required
+                      />
+                    </div>
+
+                    <div className="col-md-6">
+                      <input
+                        type="email"
+                        className="form-control form-control-lg rounded-3"
+                        placeholder="Email Address"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleChange}
+                        required
+                      />
+                    </div>
+
+                    <div className="col-md-6">
+                      <input
+                        type="text"
+                        className="form-control form-control-lg rounded-3"
+                        placeholder="Phone Number"
+                        name="number"
+                        value={formData.number}
+                        onChange={handleChange}
+                        required
+                      />
+                    </div>
+
+                    <div className="col-md-6">
+                      <select
+                        className="form-control form-control-lg rounded-3"
+                        name="session"
+                        value={formData.session}
+                        onChange={handleChange}
+                        required
+                      >
+                        <option value="">Select Session</option>
+
+                        {sessions.map((s) => (
+                          <option key={s._id} value={s._id}>
+                            {s.name}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+
+                    <div className="col-md-6">
+                      <input
+                        type="text"
+                        className="form-control form-control-lg rounded-3"
+                        placeholder="College"
+                        name="college"
+                        value={formData.college}
+                        onChange={handleChange}
+                        required
+                      />
+                    </div>
+
+                    <div className="col-md-6">
+                      <input
+                        type="text"
+                        className="form-control form-control-lg rounded-3"
+                        placeholder="Qualification"
+                        name="qualification"
+                        value={formData.qualification}
+                        onChange={handleChange}
+                        required
+                      />
+                    </div>
+
+                    <div className="col-12">
+                      <input
+                        type="password"
+                        className="form-control form-control-lg rounded-3"
+                        placeholder="Password"
+                        name="password"
+                        value={formData.password}
+                        onChange={handleChange}
+                        required
+                      />
+                    </div>
+
+                    <div className="col-12">
+                      <textarea
+                        className="form-control form-control-lg rounded-3"
+                        rows="3"
+                        placeholder="Address"
+                        name="address"
+                        value={formData.address}
+                        onChange={handleChange}
+                        required
+                      ></textarea>
+                    </div>
+
+                    <div className="col-12">
+                      <button
+                        className="btn w-100 py-3 fw-semibold rounded-3"
+                        style={{
+                          background: "linear-gradient(90deg,#4F46E5,#7C3AED)",
+                          color: "#fff"
+                        }}
+                      >
+                        Register Here
+                      </button>
+                    </div>
+
+                  </div>
+                </form>
+
+                <div className="text-center mt-4">
+                  <span className="text-muted">
+                    Already have an account?
+                  </span>
+
+                  <Link
+                    to="/"
+                    className="text-decoration-none fw-semibold ms-2"
+                  >
+                    Sign In
+                  </Link>
+                </div>
+
+              </div>
             </div>
-
           </div>
         </div>
       </div>
-    </>
+    </div>
+
+
   );
 };
 

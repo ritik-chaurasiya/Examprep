@@ -2,12 +2,13 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import axios from 'axios';
+import { toast } from "react-toastify";
 
 const Subject = () => {
   const [form, setForm] = useState({
     subjectname: '',
     description: '',
-    
+
   })
 
   // fetch data hook
@@ -26,29 +27,29 @@ const Subject = () => {
   }
   // handleSubmit
   const [id, setId] = useState({
-    id:'',
+    id: '',
   })
   const handleSubmit = async (e) => {
     // window.alert("hello");
     e.preventDefault();
     try {
-      if(editform){
-        const res = await axios.put(`https://examprep-bxeo.onrender.com/api/subject/${id.id}`,form);
-        if(res){
-          alert('Subject Updated Successfully')
-           handlefetch();
+      if (editform) {
+        const res = await axios.put(`https://examprep-bxeo.onrender.com/api/subject/${id.id}`, form);
+        if (res) {
+          toast.success('Subject Updated Successfully')
+          handlefetch();
         }
       }
-      else{
+      else {
         const res = await axios.post('https://examprep-bxeo.onrender.com/api/subject', form)
         if (res) {
-          alert('Subject Added Successfully')
+          toast.success('Subject Added Successfully')
           handlefetch();
         }
       }
     }
     catch (er) {
-      alert("Sorry try again later")
+      toast.error("Sorry try again later")
     }
   }
   // fetch data api
@@ -67,160 +68,258 @@ const Subject = () => {
     // console.log(id)
     const res = await axios.delete(`https://examprep-bxeo.onrender.com/api/subject/${id}`);
     if (res) {
-      alert("Deleted Successfully");
+      toast.success("Deleted Successfully");
     }
     else {
-      alert("Try Again Later");
+      toast.error("Try Again Later");
     }
     handlefetch();
   }
   // handle edit
   const [editform, setEditForm] = useState(null);
-  
+
   const handleEdit = async (item) => {
     // console.log(item._id)
 
     setForm({
       subjectname: item.subjectname,
       description: item.description,
-    
+
     })
     setId({
-      id:item._id
+      id: item._id
     })
     setEditForm(true);
     // console.log(form);
   }
   return (
-    <div className="container-fluid p-2">
 
-      {/* ================= ADD NEW SUBJECT ================= */}
+    <div className="container-fluid p-3">
+
+      {/* ADD SUBJECT */}
       <div className="row justify-content-center">
-        <div className="col-12 col-md-10 col-lg-8">
+        <div className="col-lg-8 col-md-10">
+
           <div
-            className="card border border-2"
-            style={{ borderColor: "#6f42c1" }}
+            className="card border-0 shadow-lg"
+            style={{
+              borderRadius: "25px"
+            }}
           >
-            <div className="card-body">
+            <div className="card-body p-4">
+
+              <h3
+                className="fw-bold mb-4"
+                style={{
+                  color: "#312E81"
+                }}
+              >
+                <i className="fa-solid fa-book-medical me-2"></i>
+                Add New Subject
+              </h3>
 
               <form onSubmit={handleSubmit}>
-                <h5 className="fw-bold mb-3" style={{ color: "#6f42c1" }}>
-                  <i className="fa-solid fa-plus me-2"></i>
-                  Add New Subject
-                </h5>
 
                 {/* Subject Name */}
-                <div className="mb-3">
+                <div className="mb-4">
                   <label className="form-label fw-semibold">
                     Subject Name
                   </label>
+
                   <input
                     type="text"
                     name="subjectname"
                     value={form.subjectname}
-                    className="form-control"
                     onChange={handleChange}
+                    className="form-control shadow-sm"
+                    placeholder="Enter Subject Name"
                     required
+                    style={{
+                      borderRadius: "15px",
+                      height: "55px"
+                    }}
                   />
                 </div>
 
                 {/* Description */}
-                <div className="mb-3">
+                <div className="mb-4">
                   <label className="form-label fw-semibold">
                     Description
                   </label>
+
                   <textarea
                     name="description"
+                    rows="4"
                     value={form.description}
-                    className="form-control"
-                    rows="2"
                     onChange={handleChange}
+                    className="form-control shadow-sm"
+                    placeholder="Enter Description"
+                    style={{
+                      borderRadius: "15px"
+                    }}
                   ></textarea>
                 </div>
 
-                {/* Submit */}
+                {/* Button */}
                 <button
-                  type="submit"
-                  className="btn text-white"
-                  style={{ background: "#39064fff" }}
+                  className="btn text-white fw-bold px-4 py-3"
+                  style={{
+                    background:
+                      "linear-gradient(90deg,#4F46E5,#7C3AED)",
+                    borderRadius: "15px"
+                  }}
                 >
+                  <i className="fa-solid fa-plus me-2"></i>
                   Add Subject
                 </button>
+
               </form>
 
             </div>
           </div>
+
         </div>
       </div>
 
-      {/* ================= SUBJECT LIST ================= */}
-      <div className="row mt-4">
+      {/* SUBJECT LIST */}
+      <div className="row mt-5">
         <div className="col-12">
+
           <div
-            className="card border border-2"
-            style={{ borderColor: "#6f42c1" }}
+            className="card border-0 shadow-lg"
+            style={{
+              borderRadius: "25px"
+            }}
           >
+
             <div className="card-body">
 
-              <h3 className="fw-bold mb-3" style={{ color: "#6f42c1" }}>
-                Subject List
-              </h3>
+              {/* Header */}
+              <div className="d-flex justify-content-between align-items-center flex-wrap mb-4">
 
+                <h3
+                  className="fw-bold"
+                  style={{
+                    color: "#312E81"
+                  }}
+                >
+                  <i className="fa-solid fa-book-open me-2"></i>
+                  Subject List
+                </h3>
+
+                <span
+                  className="badge fs-6 px-3 py-2"
+                  style={{
+                    background:
+                      "linear-gradient(90deg,#4F46E5,#7C3AED)"
+                  }}
+                >
+                  Total : {data.length}
+                </span>
+
+              </div>
+
+              {/* Table */}
               <div className="table-responsive">
-                <table className="table table-bordered table-hover align-middle text-center">
-                  <thead style={{ background: "#f2e6ff" }}>
+
+                <table className="table align-middle table-hover">
+
+                  <thead
+                    className="text-white"
+                    style={{
+                      background:
+                        "linear-gradient(90deg,#4F46E5,#7C3AED)"
+                    }}
+                  >
                     <tr>
                       <th>S.No.</th>
                       <th>Subject Name</th>
                       <th>Description</th>
-                      <th>Action</th>
+                      <th className="text-center">Action</th>
                     </tr>
                   </thead>
 
                   <tbody>
+
                     {data.length > 0 ? (
                       data.map((item, i) => (
+
                         <tr key={item._id}>
+
                           <td>{i + 1}</td>
-                          <td>{item.subjectname}</td>
-                          <td className="text-start">
-                            {item.description}
-                          </td>
+
                           <td>
-                            <div className="d-flex flex-wrap gap-2 justify-content-center">
+                            <span className="fw-bold text-primary">
+                              {item.subjectname}
+                            </span>
+                          </td>
+
+                          <td>{item.description}</td>
+
+                          <td>
+
+                            <div className="d-flex gap-2 justify-content-center flex-wrap">
+
                               <button
-                                className="btn btn-warning btn-sm"
+                                className="btn btn-sm text-white"
+                                style={{
+                                  background: "#4F46E5",
+                                  borderRadius: "10px"
+                                }}
                                 onClick={() => handleEdit(item)}
                               >
+                                <i className="fa-solid fa-pen me-1"></i>
                                 Edit
                               </button>
+
                               <button
                                 className="btn btn-danger btn-sm"
+                                style={{
+                                  borderRadius: "10px"
+                                }}
                                 onClick={() => handleDelete(item._id)}
                               >
+                                <i className="fa-solid fa-trash me-1"></i>
                                 Delete
                               </button>
+
                             </div>
+
                           </td>
+
                         </tr>
+
                       ))
                     ) : (
+
                       <tr>
-                        <td colSpan="4" className="text-muted">
-                          No subjects found
+                        <td
+                          colSpan="4"
+                          className="text-center text-muted py-5"
+                        >
+                          <i className="fa-solid fa-circle-info me-2"></i>
+                          No Subjects Found
                         </td>
                       </tr>
+
                     )}
+
                   </tbody>
+
                 </table>
+
               </div>
 
             </div>
+
           </div>
+
         </div>
       </div>
 
     </div>
+
+
 
   );
 };

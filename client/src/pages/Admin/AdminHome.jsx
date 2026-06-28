@@ -49,130 +49,212 @@ const AdminHome = () => {
   if (error) return <p className="text-danger text-center">{error}</p>;
 
   return (
-    <div className="container-fluid p-4">
+
+    <div
+      className="container-fluid min-vh-100 p-4"
+      style={{
+        background:
+          "linear-gradient(135deg,#0F172A 0%,#312E81 50%,#7C3AED 100%)",
+      }}
+    >
       {/* Header */}
       <div className="d-flex justify-content-between align-items-center flex-wrap mb-4">
-        <h2 className="fw-bold text-primary">Dashboard Overview</h2>
-        <p className="mb-0">👋 Welcome Admin</p>
+        <div>
+          <h2 className="fw-bold text-white">Dashboard Overview</h2>
+          <p className="text-light mb-0">👋 Welcome Admin</p>
+        </div>
       </div>
 
-      {/* Cards */}
+      {/* Stats Cards */}
       <div className="row g-4">
-        <div className="col-12 col-sm-6 col-lg-4">
-          <div className="card text-white bg-primary h-100 shadow">
+
+        {/* Total Exams */}
+        <div className="col-12 col-md-6 col-lg-4">
+          <div
+            className="card border-0 shadow-lg h-100"
+            style={{
+              background: "rgba(255,255,255,.12)",
+              backdropFilter: "blur(12px)",
+              borderRadius: "20px",
+              color: "white",
+            }}
+          >
             <div className="card-body">
-              <div className="d-flex align-items-center gap-2">
-                <FaClipboardList size={26} />
-                <h6 className="mb-0">Total Exams</h6>
-              </div>
-              <h3 className="mt-3">{data.totalExams}</h3>
+              <FaClipboardList className="text-info mb-3" size={35} />
+              <h6>Total Exams</h6>
+              <h2>{data.totalExams}</h2>
             </div>
           </div>
         </div>
 
-        <div className="col-12 col-sm-6 col-lg-4">
-          <div className="card text-white bg-success h-100 shadow">
+        {/* Total Examinees */}
+        <div className="col-12 col-md-6 col-lg-4">
+          <div
+            className="card border-0 shadow-lg h-100"
+            style={{
+              background: "rgba(255,255,255,.12)",
+              backdropFilter: "blur(12px)",
+              borderRadius: "20px",
+              color: "white",
+            }}
+          >
             <div className="card-body">
-              <div className="d-flex align-items-center gap-2">
-                <FaUsers size={26} />
-                <h6 className="mb-0">Total Examinees</h6>
-              </div>
-              <h3 className="mt-3">{data.totalExaminees}</h3>
+              <FaUsers className="text-success mb-3" size={35} />
+              <h6>Total Examinees</h6>
+              <h2>{data.totalExaminees}</h2>
             </div>
           </div>
         </div>
 
-        <div className="col-12 col-sm-6 col-lg-4">
-          <div className="card text-dark bg-warning h-100 shadow">
+        {/* Total Subjects */}
+        <div className="col-12 col-md-6 col-lg-4">
+          <div
+            className="card border-0 shadow-lg h-100"
+            style={{
+              background: "rgba(255,255,255,.12)",
+              backdropFilter: "blur(12px)",
+              borderRadius: "20px",
+              color: "white",
+            }}
+          >
             <div className="card-body">
-              <div className="d-flex align-items-center gap-2">
-                <FaBook size={26} />
-                <h6 className="mb-0">Total Subjects</h6>
-              </div>
-              <h3 className="mt-3">{data.totalSubject}</h3>
+              <FaBook className="text-warning mb-3" size={35} />
+              <h6>Total Subjects</h6>
+              <h2>{data.totalSubject}</h2>
             </div>
           </div>
         </div>
       </div>
 
       {/* Recent Exams */}
-      <div className="mt-5">
-        <h4 className="fw-semibold border-bottom pb-2">
-          Recent Exams
-        </h4>
+      <div
+        className="card shadow-lg border-0 mt-5"
+        style={{
+          borderRadius: "25px",
+        }}
+      >
+        <div className="card-body">
 
-        {/* Controls */}
-        <div className="d-flex flex-wrap gap-2 justify-content-between my-3">
-          <input
-            type="text"
-            className="form-control w-100 w-md-50"
-            placeholder="Search exams..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-          />
-
-          <select
-            className="form-select w-auto"
-            value={perPage}
-            onChange={(e) => setPerPage(Number(e.target.value))}
+          <h4
+            className="fw-bold mb-4"
+            style={{
+              color: "#312E81",
+            }}
           >
-            <option value={5}>5 / page</option>
-            <option value={10}>10 / page</option>
-            <option value={20}>20 / page</option>
-          </select>
-        </div>
+            Recent Exams
+          </h4>
 
-        {/* Table */}
-        <div className="table-responsive">
-          <table className="table table-bordered table-hover align-middle">
-            <thead className="table-light">
-              <tr>
-                <th>Exam Name</th>
-                <th>Date</th>
-                <th>Status</th>
-                <th>Total Marks</th>
-              </tr>
-            </thead>
-            <tbody>
-              {currentExams.map((item, index) => (
-                <tr key={index}>
-                  <td>{item.title}</td>
-                  <td>{new Date(item.date).toLocaleDateString()}</td>
-                  <td>
-                    <span className="badge bg-info text-dark">
-                      {item.status}
-                    </span>
-                  </td>
-                  <td>{item.totalMarks}</td>
+          {/* Search + Select */}
+          <div className="row g-3 mb-4">
+
+            <div className="col-md-8">
+              <input
+                type="text"
+                className="form-control py-3"
+                placeholder="Search exams..."
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                style={{
+                  borderRadius: "15px",
+                }}
+              />
+            </div>
+
+            <div className="col-md-4">
+              <select
+                className="form-select py-3"
+                value={perPage}
+                onChange={(e) => setPerPage(Number(e.target.value))}
+                style={{
+                  borderRadius: "15px",
+                }}
+              >
+                <option value={5}>5 / page</option>
+                <option value={10}>10 / page</option>
+                <option value={20}>20 / page</option>
+              </select>
+            </div>
+          </div>
+
+          {/* Table */}
+          <div className="table-responsive">
+            <table className="table table-hover align-middle">
+
+              <thead
+                style={{
+                  background:
+                    "linear-gradient(90deg,#4F46E5,#7C3AED)",
+                  color: "white",
+                }}
+              >
+                <tr>
+                  <th>Exam Name</th>
+                  <th>Date</th>
+                  <th>Status</th>
+                  <th>Total Marks</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+              </thead>
 
-        {/* Pagination */}
-        {totalPages > 1 && (
-          <nav className="d-flex justify-content-center">
-            <ul className="pagination flex-wrap">
-              {Array.from({ length: totalPages }, (_, i) => (
-                <li
-                  key={i}
-                  className={`page-item ${currentPage === i + 1 ? "active" : ""
-                    }`}
-                >
-                  <button
-                    className="page-link"
-                    onClick={() => setCurrentPage(i + 1)}
-                  >
-                    {i + 1}
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </nav>
-        )}
+              <tbody>
+                {currentExams.map((item, index) => (
+                  <tr key={index}>
+                    <td>{item.title}</td>
+
+                    <td>
+                      {new Date(item.date).toLocaleDateString()}
+                    </td>
+
+                    <td>
+                      <span
+                        className="badge px-3 py-2"
+                        style={{
+                          background: "#4F46E5",
+                        }}
+                      >
+                        {item.status}
+                      </span>
+                    </td>
+
+                    <td>{item.totalMarks}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          {/* Pagination */}
+          {totalPages > 1 && (
+            <nav className="d-flex justify-content-center mt-4">
+              <ul className="pagination flex-wrap">
+
+                {Array.from(
+                  { length: totalPages },
+                  (_, i) => (
+                    <li
+                      key={i}
+                      className={`page - item ${currentPage === i + 1
+                          ? "active"
+                          : ""
+                        } `}
+                    >
+                      <button
+                        className="page-link"
+                        onClick={() =>
+                          setCurrentPage(i + 1)
+                        }
+                      >
+                        {i + 1}
+                      </button>
+                    </li>
+                  )
+                )}
+              </ul>
+            </nav>
+          )}
+        </div>
       </div>
     </div>
+
   );
 };
 

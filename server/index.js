@@ -11,8 +11,8 @@ app.use(cors());
 app.use(express.json());
 
 // Debug: check env loaded or not
-console.log("EMAIL_USER:", process.env.EMAIL_USER);
-console.log("EMAIL_PASS:", process.env.EMAIL_PASS ? "LOADED" : "NOT LOADED");
+// console.log("EMAIL_USER:", process.env.EMAIL_USER);
+// console.log("EMAIL_PASS:", process.env.EMAIL_PASS ? "LOADED" : "NOT LOADED");
 
 // const url = 'mongodb://localhost:27017/examprep'
 // const url = 'MONGODB_CONNECT'
@@ -24,6 +24,8 @@ mongoose.connect(url)
     .catch((er) => {
         console.log(`Error is ${er}`)
     })
+    
+// console.log("MONGODB_CONNECT:", process.env.MONGODB_CONNECT);
     
 //apis started
 app.use("/uploads", express.static("uploads"));

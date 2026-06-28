@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router';
 import axios from 'axios';
-import './GetExam.css';
+import { toast } from "react-toastify";
+// import './GetExam.css';
 
 const GetExam = () => {
   const { id: examId } = useParams();
@@ -76,7 +77,7 @@ const GetExam = () => {
 
       setResult(res.data);
       setSubmitted(true);
-      alert('Your Exam was submitted successfully!');
+      toast.success('Your Exam was submitted successfully!');
       navigate('/userdash/profile');
     } catch (err) {
       console.error('Error submitting exam:', err);
@@ -93,134 +94,457 @@ const GetExam = () => {
   }
 
   return (
-    <div className="container-fluid px-2 px-md-3 my-4">
-      <div className="row justify-content-center">
-        <div className="col-12 col-lg-10 col-xl-9">
+    <div
+      className="container-fluid py-4"
+      style={{
+        background: "#F8FAFC",
+        minHeight: "100vh",
+      }}
+    >
+      {/* ================= Header ================= */}
 
-          {/* Sticky Timer */}
-          <div className="sticky-top mb-3">
-            <div className="alert alert-light border-start border-4 border-danger shadow-sm d-flex justify-content-between align-items-center">
-              <span className="fw-semibold">⏰ Time Left</span>
-              <span className="fw-bold text-danger fs-5">
-                {formatTime(timeLeft)}
-              </span>
-            </div>
-          </div>
+      <div
+        className="card border-0 shadow-lg mb-4"
+        style={{
+          borderRadius: "25px",
+          background: "linear-gradient(90deg,#4F46E5,#7C3AED)",
+        }}
+      >
+        <div className="card-body">
 
-          {/* Exam Info */}
-          <div className="card shadow-sm mb-4">
-            <div className="card-body text-center">
-              <h2 className="fw-bold text-primary mb-3">
+          <div className="row align-items-center">
+
+            <div className="col-lg-8">
+
+              <h2 className="text-white fw-bold mb-2">
+                <i className="fa-solid fa-graduation-cap me-2"></i>
+
                 {exam.title}
               </h2>
 
-              <div className="row g-3">
-                <div className="col-12 col-md-4">
-                  <div className="info-box">
-                    <div className="text-muted">Duration</div>
-                    <div className="fw-bold">{exam.duration} mins</div>
-                  </div>
-                </div>
-                <div className="col-12 col-md-4">
-                  <div className="info-box">
-                    <div className="text-muted">Total Marks</div>
-                    <div className="fw-bold">{exam.totalMarks}</div>
-                  </div>
-                </div>
-                <div className="col-12 col-md-4">
-                  <div className="info-box">
-                    <div className="text-muted">Passing Marks</div>
-                    <div className="fw-bold">{exam.passingMarks}</div>
-                  </div>
-                </div>
-              </div>
+              <p className="text-white-50 mb-0">
+                Read every question carefully before submitting your examination.
+              </p>
+
             </div>
-          </div>
 
-          {!submitted ? (
-            <>
-              {!testStarted && (
-                <div className="alert alert-warning text-center">
-                  ⚠ Click any option to start the exam timer
-                </div>
-              )}
+            <div className="col-lg-4 text-lg-end mt-3 mt-lg-0">
 
-              {/* Questions */}
-              <form
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  handleSubmit();
+              <span
+                className="badge bg-white px-4 py-3 fs-6"
+                style={{
+                  color: "#4F46E5",
+                  borderRadius: "30px",
                 }}
               >
-                {Array.isArray(questions) &&
-                  questions.map((q, index) => (
-                    <div
-                      key={q._id}
-                      className="card question-card shadow-sm mb-3"
-                    >
-                      <div className="card-body">
-                        <h5 className="fw-semibold mb-3">
-                          Q{index + 1}. {q.question}
-                        </h5>
+                <i className="fa-solid fa-file-lines me-2"></i>
 
-                        {[q.optionA, q.optionB, q.optionC, q.optionD].map(
-                          (opt, i) => (
-                            <label
-                              key={i}
-                              className="option-item d-flex align-items-center"
-                            >
-                              <input
-                                type="radio"
-                                className="form-check-input me-2"
-                                name={`question-${q._id}`}
-                                value={opt}
-                                checked={answers[q._id] === opt}
-                                onChange={() =>
-                                  handleAnswerChange(q._id, opt)
-                                }
-                                disabled={submitted}
-                              />
-                              <span>{opt}</span>
-                            </label>
-                          )
-                        )}
-                      </div>
-                    </div>
-                  ))}
+                {questions.length} Questions
 
-                {/* Submit */}
-                <div className="text-center my-4">
-                  <button
-                    type="submit"
-                    className="btn btn-primary btn-lg px-5 w-100 w-md-auto"
-                    disabled={submitted}
-                  >
-                    🚀 Submit Exam
-                  </button>
-                </div>
-              </form>
-            </>
-          ) : (
-            /* Result */
-            <div className="card shadow text-center p-4">
-              <h4 className="fw-bold mb-3">Exam Result</h4>
-              <p className="fs-5">
-                <strong>Score:</strong> {result?.score}
-              </p>
-              <span
-                className={`badge fs-6 ${result?.passed ? "bg-success" : "bg-danger"
-                  }`}
-              >
-                {result?.passed ? "Passed" : "Failed"}
               </span>
+
             </div>
-          )}
+
+          </div>
 
         </div>
       </div>
-    </div>
 
+      {/* ================= Timer ================= */}
 
+      <div className="sticky-top mb-4">
+
+        <div
+          className="card border-0 shadow"
+          style={{
+            borderRadius: "18px",
+            borderLeft: "6px solid #7C3AED",
+          }}
+        >
+
+          <div className="card-body">
+
+            <div className="d-flex justify-content-between align-items-center">
+
+              <h5
+                className="fw-bold mb-0"
+                style={{
+                  color: "#4F46E5",
+                }}
+              >
+                <i className="fa-solid fa-stopwatch me-2"></i>
+
+                Time Remaining
+
+              </h5>
+
+              <span
+                className="badge fs-5 px-4 py-3"
+                style={{
+                  background: "#FEE2E2",
+                  color: "#DC2626",
+                  borderRadius: "30px",
+                }}
+              >
+                {formatTime(timeLeft)}
+              </span>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      {/* ================= Exam Information ================= */}
+
+      <div className="row g-4 mb-4">
+
+        <div className="col-12 col-md-4">
+
+          <div
+            className="card border-0 shadow h-100"
+            style={{
+              borderRadius: "20px",
+            }}
+          >
+
+            <div className="card-body text-center">
+
+              <div
+                className="rounded-circle mx-auto mb-3 d-flex justify-content-center align-items-center"
+                style={{
+                  width: "70px",
+                  height: "70px",
+                  background: "#EEF2FF",
+                }}
+              >
+
+                <i
+                  className="fa-regular fa-clock"
+                  style={{
+                    color: "#4F46E5",
+                    fontSize: "30px",
+                  }}
+                ></i>
+
+              </div>
+
+              <h6 className="text-muted">
+                Duration
+              </h6>
+
+              <h3
+                className="fw-bold"
+                style={{
+                  color: "#4F46E5",
+                }}
+              >
+                {exam.duration} Min
+              </h3>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <div className="col-12 col-md-4">
+
+          <div
+            className="card border-0 shadow h-100"
+            style={{
+              borderRadius: "20px",
+            }}
+          >
+
+            <div className="card-body text-center">
+
+              <div
+                className="rounded-circle mx-auto mb-3 d-flex justify-content-center align-items-center"
+                style={{
+                  width: "70px",
+                  height: "70px",
+                  background: "#F3E8FF",
+                }}
+              >
+
+                <i
+                  className="fa-solid fa-award"
+                  style={{
+                    color: "#7C3AED",
+                    fontSize: "30px",
+                  }}
+                ></i>
+
+              </div>
+
+              <h6 className="text-muted">
+                Total Marks
+              </h6>
+
+              <h3
+                className="fw-bold"
+                style={{
+                  color: "#7C3AED",
+                }}
+              >
+                {exam.totalMarks}
+              </h3>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <div className="col-12 col-md-4">
+
+          <div
+            className="card border-0 shadow h-100"
+            style={{
+              borderRadius: "20px",
+            }}
+          >
+
+            <div className="card-body text-center">
+
+              <div
+                className="rounded-circle mx-auto mb-3 d-flex justify-content-center align-items-center"
+                style={{
+                  width: "70px",
+                  height: "70px",
+                  background: "#DCFCE7",
+                }}
+              >
+
+                <i
+                  className="fa-solid fa-circle-check"
+                  style={{
+                    color: "#16A34A",
+                    fontSize: "30px",
+                  }}
+                ></i>
+
+              </div>
+
+              <h6 className="text-muted">
+                Passing Marks
+              </h6>
+
+              <h3 className="fw-bold text-success">
+                {exam.passingMarks}
+              </h3>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      {!submitted && !testStarted && (
+
+        <div className="alert alert-warning rounded-4 shadow-sm text-center">
+
+          <i className="fa-solid fa-triangle-exclamation me-2"></i>
+
+          Click any option to start the timer.
+
+        </div>
+
+      )}
+
+      {!submitted && (
+
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleSubmit();
+          }}
+        >
+          {/* ================= Questions ================= */}
+
+          {Array.isArray(questions) &&
+            questions.map((q, index) => (
+
+              <div
+                key={q._id}
+                className="card border-0 shadow-lg mb-4"
+                style={{ borderRadius: "20px" }}
+              >
+
+                {/* Question Header */}
+
+                <div
+                  className="card-header text-white fw-bold"
+                  style={{
+                    background: "linear-gradient(90deg,#4F46E5,#7C3AED)",
+                    borderTopLeftRadius: "20px",
+                    borderTopRightRadius: "20px"
+                  }}
+                >
+
+                  <span className="badge bg-white text-primary me-2">
+                    Q {index + 1}
+                  </span>
+
+                  {q.question}
+
+                </div>
+
+                <div className="card-body">
+
+                  <div className="row g-3">
+
+                    {[
+                      { label: "A", value: q.optionA },
+                      { label: "B", value: q.optionB },
+                      { label: "C", value: q.optionC },
+                      { label: "D", value: q.optionD },
+                    ].map((option) => (
+
+                      <div
+                        className="col-12 col-md-6"
+                        key={option.label}
+                      >
+
+                        <label
+                          className={`card h-100 border-2 ${answers[q._id] === option.value
+                            ? "border-primary shadow"
+                            : "border-light"
+                            }`}
+                          style={{
+                            cursor: "pointer",
+                            borderRadius: "15px"
+                          }}
+                        >
+
+                          <div className="card-body d-flex align-items-center">
+
+                            <input
+                              type="radio"
+                              className="form-check-input me-3"
+                              name={`question-${q._id}`}
+                              value={option.value}
+                              checked={answers[q._id] === option.value}
+                              onChange={() =>
+                                handleAnswerChange(q._id, option.value)
+                              }
+                            />
+
+                            <span className="fw-semibold">
+
+                              {option.label}. {option.value}
+
+                            </span>
+
+                          </div>
+
+                        </label>
+
+                      </div>
+
+                    ))}
+
+                  </div>
+
+                </div>
+
+              </div>
+
+            ))}
+
+          {/* ================= Submit Button ================= */}
+
+          <div className="text-center my-5">
+
+            <button
+              type="submit"
+              className="btn btn-lg text-white px-5 py-3 rounded-pill shadow"
+              style={{
+                background:
+                  "linear-gradient(90deg,#4F46E5,#7C3AED)",
+                minWidth: "250px"
+              }}
+            >
+
+              <i className="fa-solid fa-paper-plane me-2"></i>
+
+              Submit Exam
+
+            </button>
+
+          </div>
+
+        </form>
+
+      )
+      }
+
+      {/* ================= Result ================= */}
+
+      {
+        submitted && (
+
+          <div
+            className="card border-0 shadow-lg"
+            style={{ borderRadius: "25px" }}
+          >
+
+            <div className="card-body text-center py-5">
+
+              <i
+                className={`fa-solid ${result?.passed
+                  ? "fa-circle-check text-success"
+                  : "fa-circle-xmark text-danger"
+                  }`}
+                style={{ fontSize: "90px" }}
+              ></i>
+
+              <h2
+                className="fw-bold mt-4"
+                style={{ color: "#4F46E5" }}
+              >
+                Exam Completed
+              </h2>
+
+              <h3 className="mt-4">
+
+                Score :
+                <span className="text-primary ms-2">
+                  {result?.score}
+                </span>
+
+              </h3>
+
+              <div className="mt-4">
+
+                <span
+                  className={`badge fs-5 px-5 py-3 ${result?.passed
+                    ? "bg-success"
+                    : "bg-danger"
+                    }`}
+                >
+
+                  {result?.passed
+                    ? "PASSED"
+                    : "FAILED"}
+
+                </span>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        )
+      }
+
+    </div >
   );
 };
 

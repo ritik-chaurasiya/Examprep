@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import axios from "axios";
 import loginImage from "../assets/images/login1.png";
 import { Link } from "react-router";
+import { FaEnvelope, FaLock, FaGoogle } from "react-icons/fa";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const [data, setData] = useState({
@@ -25,138 +27,161 @@ const Login = () => {
         localStorage.setItem("userId", res.data.user.id);
         window.location.href = "/userdash/";
       } else {
-        alert("Invalid credentials. Please try again.");
+        toast.error("Invalid credentials. Please try again.");
         setData({ email: "", password: "" });
       }
     } catch (error) {
       console.error("Login error:", error);
-      alert("An error occurred during login. Please try again.");
+      toast.error("An error occurred during login. Please try again.");
     }
   };
 
-  const styles = {
-    page: {
-      minHeight: "100vh",
-      background:
-        "linear-gradient(135deg, #4a3365, #ac66e9, #3c2e58)",
-      display: "flex",
-      alignItems: "center",
-      padding: "20px",
-    },
-    card: {
-      borderRadius: "18px",
-      overflow: "hidden",
-      boxShadow: "0 25px 60px rgba(0,0,0,0.35)",
-    },
-    leftPanel: {
-      background:
-        "linear-gradient(135deg, #570c78, #593a78, #8b44d2)",
-      color: "#fff",
-      textAlign: "center",
-      padding: "40px 20px",
-    },
-    rightPanel: {
-      padding: "40px 25px",
-    },
-    heading: {
-      fontSize: "36px",
-      fontWeight: "700",
-      color: "#4a0b65",
-      borderBottom: "4px solid",
-      display: "inline-block",
-      marginBottom: "25px",
-    },
-    input: {
-      padding: "10px",
-      borderRadius: "6px",
-      border: "1px solid #ccc",
-      fontSize: "14px",
-    },
-    submitBtn: {
-      background:
-        "linear-gradient(to right, #3a0451, #7827c0)",
-      color: "#fff",
-      fontWeight: "600",
-      border: "none",
-      padding: "10px",
-      borderRadius: "6px",
-      width: "100%",
-    },
-  };
-
   return (
-    <div style={styles.page}>
+
+    <div
+      className="min-vh-100 d-flex align-items-center justify-content-center py-5"
+      style={{
+        background:
+          "linear-gradient(135deg, #0F172A 0%, #312E81 50%, #7C3AED 100%)"
+      }}
+    >
       <div className="container">
-        <div className="row justify-content-center">
-          <div className="col-12 col-lg-10">
-            <div className="card" style={styles.card}>
-              <div className="row g-0">
+        <div
+          className="row g-0 bg-white shadow-lg mx-auto"
+          style={{
+            maxWidth: "1000px",
+            borderRadius: "25px",
+            overflow: "hidden",
+            minHeight: "650px"
+          }}
+        >
+          {/* Left Side */}
+          <div
+            className="col-md-5 d-none d-md-flex flex-column justify-content-center align-items-center text-white p-4"
+            style={{
+              background: "linear-gradient(135deg,#4F46E5,#7C3AED)"
+            }}
+          >
+            <img
+              src={loginImage}
+              alt="login"
+              className="img-fluid mb-4"
+              style={{
+                maxWidth: "280px",
+                width: "100%"
+              }}
+            />
 
-                {/* LEFT PANEL */}
-                <div className="col-12 col-md-6" style={styles.leftPanel}>
-                  <img
-                    src={loginImage}
-                    alt="login"
-                    className="img-fluid mb-3"
-                    style={{ maxWidth: "300px" }}
-                  />
-                  <h4 className="fw-bold">Welcome to ExamPrep</h4>
-                  <p className="opacity-75">
-                    Login to access exams, results and dashboard
-                  </p>
-                </div>
+            <h2 className="fw-bold">ExamPrep AI</h2>
 
-                {/* RIGHT PANEL */}
-                <div className="col-12 col-md-6 bg-white" style={styles.rightPanel}>
-                  <form onSubmit={handleSubmit}>
-                    <div className="text-center">
-                      <div style={styles.heading}>User Login</div>
-                    </div>
+            <p className="text-center opacity-75">
+              Learn smarter and prepare better with AI-powered exams.
+            </p>
+          </div>
 
-                    <label>Email</label>
+          {/* Right Side */}
+          <div
+            className="col-md-7 col-12 d-flex align-items-center justify-content-center bg-white"
+          >
+            <div className="w-100 p-4 p-md-5">
+
+              <h2 className="fw-bold mb-2">Welcome Back </h2>
+
+              <p className="text-muted mb-4">
+                Sign in to continue your learning journey.
+              </p>
+
+              <form onSubmit={handleSubmit}>
+
+                <div className="mb-3">
+                  <label className="form-label fw-semibold">
+                    Email Address
+                  </label>
+
+                  <div className="input-group">
+                    <span className="input-group-text bg-white">
+                      <FaEnvelope />
+                    </span>
+
                     <input
                       type="email"
-                      className="form-control mb-3"
-                      style={styles.input}
+                      className="form-control py-3"
+                      placeholder="Enter your email"
                       name="email"
                       value={data.email}
                       onChange={handleChange}
-                      required
                     />
+                  </div>
+                </div>
 
-                    <label>Password</label>
+                <div className="mb-4">
+                  <label className="form-label fw-semibold">
+                    Password
+                  </label>
+
+                  <div className="input-group">
+                    <span className="input-group-text bg-white">
+                      <FaLock />
+                    </span>
+
                     <input
                       type="password"
-                      className="form-control mb-3"
-                      style={styles.input}
+                      className="form-control py-3"
+                      placeholder="Enter your password"
                       name="password"
                       value={data.password}
                       onChange={handleChange}
-                      required
                     />
-
-                    <button type="submit" style={styles.submitBtn}>
-                      Login
-                    </button>
-
-                    <div className="mt-3 text-center small">
-                      Don’t have an account?{" "}
-                      <Link to="/register">Register</Link>
-                    </div>
-
-                    <div className="text-center small mt-1">
-                      Are you admin?{" "}
-                      <Link to="/adlogin">Admin Login</Link>
-                    </div>
-                  </form>
+                  </div>
                 </div>
 
-              </div>
+                <div className="d-flex justify-content-between mb-4">
+                  <div className="form-check">
+                    <input
+                      className="form-check-input"
+                      type="checkbox"
+                    />
+                    <label className="form-check-label">
+                      Remember me
+                    </label>
+                  </div>
+
+                  <Link
+                    to="/forgot-password"
+                    className="text-decoration-none"
+                  >
+                    Forgot Password?
+                  </Link>
+                </div>
+
+                <button
+                  className="btn btn-primary w-100 py-3 fw-bold"
+                  style={{
+                    borderRadius: "15px",
+                    background: "linear-gradient(90deg,#4F46E5,#7C3AED)",
+                    border: "none"
+                  }}
+                >
+                  Login
+                </button>
+
+                <div className="text-center mt-4">
+                  Don't have an account?{" "}
+                  <Link to="/register">Register</Link>
+                </div>
+
+                <div className="text-center mt-2">
+                  Admin Access?{" "}
+                  <Link to="/adlogin">Admin Login</Link>
+                </div>
+
+              </form>
             </div>
           </div>
         </div>
       </div>
     </div>
+
   );
 };
 

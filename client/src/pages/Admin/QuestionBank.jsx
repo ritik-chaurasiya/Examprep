@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { toast } from "react-toastify";
 
 const QuestionBank = () => {
   const [formData, setFormdata] = useState({
@@ -30,12 +31,12 @@ const QuestionBank = () => {
       if (editform) {
         const res = await axios.put(`https://examprep-bxeo.onrender.com/api/question/${id.id}`, formData);
         if (res) {
-          alert('Question updated successfully');
+          toast.success('Question updated successfully');
         }
       } else {
         const res = await axios.post('https://examprep-bxeo.onrender.com/api/question', formData);
         if (res) {
-          alert('Question added successfully');
+          toast.success('Question added successfully');
         }
       }
 
@@ -53,7 +54,7 @@ const QuestionBank = () => {
       handlefetch();
     } catch (err) {
       console.log(err);
-      alert("Sorry, try again later");
+      toast.error("Sorry, try again later");
     }
   };
 
@@ -73,11 +74,11 @@ const QuestionBank = () => {
     try {
       const res = await axios.delete(`https://examprep-bxeo.onrender.com/api/question/${id}`);
       if (res) {
-        alert("Deleted Successfully");
+        toast.success("Deleted Successfully");
         handlefetch();
       }
     } catch (err) {
-      alert("Try Again Later");
+      toast.error("Try Again Later");
     }
   };
 
@@ -120,256 +121,527 @@ const QuestionBank = () => {
     <div className="container-fluid p-2">
 
       {/* ================= ADD / EDIT QUESTION ================= */}
-      <div className="row">
+
+      <div className="row mb-4">
         <div className="col-12">
-          <div className="card border border-2" style={{ borderColor: "#6f42c1" }}>
-            <div className="card-body">
+
+          <div
+            className="card border-0 shadow-lg"
+            style={{
+              borderRadius: "25px",
+              background: "rgba(255,255,255,.96)"
+            }}
+          >
+            <div className="card-body p-4">
+
+              <div className="d-flex align-items-center mb-4">
+
+                <div
+                  className="rounded-circle d-flex justify-content-center align-items-center me-3"
+                  style={{
+                    width: "60px",
+                    height: "60px",
+                    background:
+                      "linear-gradient(90deg,#4F46E5,#7C3AED)"
+                  }}
+                >
+                  <i className="fa-solid fa-circle-question text-white fs-3"></i>
+                </div>
+
+                <div>
+                  <h3
+                    className="fw-bold mb-0"
+                    style={{ color: "#312E81" }}
+                  >
+                    {editform ? "Edit Question" : "Add Question"}
+                  </h3>
+
+                  <small className="text-muted">
+                    Manage question bank efficiently
+                  </small>
+                </div>
+
+              </div>
 
               <form onSubmit={handleSubmit}>
-                <h5 className="fw-bold mb-3" style={{ color: "#6f42c1" }}>
-                  <i className="fa-solid fa-plus me-2"></i>
-                  {editform ? "Edit Question" : "Add Question"}
-                </h5>
 
                 {/* Question */}
-                <div className="mb-3">
-                  <label className="fw-semibold">Question</label>
+                <div className="mb-4">
+                  <label className="fw-semibold mb-2">
+                    Question
+                  </label>
+
                   <textarea
                     name="question"
                     value={formData.question}
                     onChange={handleChange}
-                    className="form-control"
-                    placeholder="Enter Question Here"
+                    className="form-control shadow-sm"
+                    rows="3"
+                    placeholder="Enter Question Here..."
                     required
+                    style={{
+                      borderRadius: "15px"
+                    }}
                   />
                 </div>
 
-                {/* Options A & B */}
-                <div className="row g-2">
-                  <div className="col-12 col-md-6">
+                {/* Option A B */}
+                <div className="row g-3">
+
+                  <div className="col-md-6">
                     <input
                       type="text"
                       name="optionA"
-                      className="form-control"
-                      placeholder="a.) Option 1"
                       value={formData.optionA}
                       onChange={handleChange}
+                      className="form-control shadow-sm"
+                      placeholder="Option A"
                       required
+                      style={{
+                        borderRadius: "15px",
+                        height: "55px"
+                      }}
                     />
                   </div>
-                  <div className="col-12 col-md-6">
+
+                  <div className="col-md-6">
                     <input
                       type="text"
                       name="optionB"
-                      className="form-control"
-                      placeholder="b.) Option 2"
                       value={formData.optionB}
                       onChange={handleChange}
+                      className="form-control shadow-sm"
+                      placeholder="Option B"
                       required
+                      style={{
+                        borderRadius: "15px",
+                        height: "55px"
+                      }}
                     />
                   </div>
+
                 </div>
 
-                {/* Options C & D */}
-                <div className="row g-2 mt-2">
-                  <div className="col-12 col-md-6">
+                {/* Option C D */}
+                <div className="row g-3 mt-1">
+
+                  <div className="col-md-6">
                     <input
                       type="text"
                       name="optionC"
-                      className="form-control"
-                      placeholder="c.) Option 3"
                       value={formData.optionC}
                       onChange={handleChange}
+                      className="form-control shadow-sm"
+                      placeholder="Option C"
                       required
+                      style={{
+                        borderRadius: "15px",
+                        height: "55px"
+                      }}
                     />
                   </div>
-                  <div className="col-12 col-md-6">
+
+                  <div className="col-md-6">
                     <input
                       type="text"
                       name="optionD"
-                      className="form-control"
-                      placeholder="d.) Option 4"
                       value={formData.optionD}
                       onChange={handleChange}
+                      className="form-control shadow-sm"
+                      placeholder="Option D"
                       required
+                      style={{
+                        borderRadius: "15px",
+                        height: "55px"
+                      }}
                     />
                   </div>
+
                 </div>
 
                 {/* Correct Answer + Subject */}
-                <div className="row g-2 mt-2">
-                  <div className="col-12 col-md-6">
+                <div className="row g-3 mt-1">
+
+                  <div className="col-md-6">
+
                     <input
                       name="correctAnswer"
-                      className="form-control"
-                      placeholder="Correct Option"
                       value={formData.correctAnswer}
                       onChange={handleChange}
+                      className="form-control shadow-sm"
+                      placeholder="Correct Answer"
                       required
+                      style={{
+                        borderRadius: "15px",
+                        height: "55px"
+                      }}
                     />
+
                   </div>
-                  <div className="col-12 col-md-6">
+
+                  <div className="col-md-6">
+
                     <select
                       name="subject"
                       value={formData.subject}
                       onChange={handleChange}
-                      className="form-select"
+                      className="form-select shadow-sm"
                       required
+                      style={{
+                        borderRadius: "15px",
+                        height: "55px"
+                      }}
                     >
-                      <option value="">Select Subject</option>
+                      <option value="">
+                        Select Subject
+                      </option>
+
                       {subjects.map((sub) => (
-                        <option key={sub._id} value={sub._id}>
+                        <option
+                          key={sub._id}
+                          value={sub._id}
+                        >
                           {sub.subjectname}
                         </option>
                       ))}
                     </select>
+
                   </div>
+
                 </div>
 
-                {/* Submit */}
                 <button
                   type="submit"
-                  className="btn text-white mt-3"
-                  style={{ background: "#39064fff" }}
+                  className="btn text-white mt-4 px-4 py-3 fw-semibold"
+                  style={{
+                    background:
+                      "linear-gradient(90deg,#4F46E5,#7C3AED)",
+                    borderRadius: "15px"
+                  }}
                 >
-                  {editform ? "Update Question" : "Add Question"}
+                  <i className="fa-solid fa-floppy-disk me-2"></i>
+
+                  {editform
+                    ? "Update Question"
+                    : "Add Question"}
                 </button>
+
               </form>
 
             </div>
           </div>
+
         </div>
       </div>
 
       {/* ================= QUESTION LIST ================= */}
-      <div className="row mt-3">
-        <div className="col-12">
-          <div className="card border border-2" style={{ borderColor: "#6f42c1" }}>
-            <div className="card-body">
+      <div
+        className="card border-0 shadow-lg mt-4"
+        style={{
+          borderRadius: "25px",
+          background: "rgba(255,255,255,.96)"
+        }}
+      >
+        <div className="card-body p-4">
 
-              {/* Header */}
-              <div className="row g-2 align-items-center mb-3">
-                <div className="col-12 col-md-6">
-                  <h3 className="fw-bold mb-0" style={{ color: "#6f42c1" }}>
-                    Question List
-                  </h3>
+          {/* Header */}
+          <div className="row align-items-center g-3 mb-4">
+
+            {/* Left Side */}
+            <div className="col-lg-5">
+
+              <div className="d-flex align-items-center">
+
+                <div
+                  className="rounded-circle d-flex justify-content-center align-items-center me-3"
+                  style={{
+                    width: "60px",
+                    height: "60px",
+                    background:
+                      "linear-gradient(90deg,#4F46E5,#7C3AED)"
+                  }}
+                >
+                  <i className="fa-solid fa-list text-white fs-3"></i>
                 </div>
 
-                <div className="col-12 col-md-3">
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="Search..."
-                    value={search}
-                    onChange={(e) => setSearch(e.target.value)}
-                  />
-                </div>
+                <div>
 
-                <div className="col-12 col-md-3">
-                  <select
-                    className="form-select"
-                    value={perPage}
-                    onChange={(e) => {
-                      setPerPage(Number(e.target.value));
-                      setCurrentPage(1);
+                  <h3
+                    className="fw-bold mb-0"
+                    style={{
+                      color: "#312E81"
                     }}
                   >
-                    <option value="5">5 per page</option>
-                    <option value="10">10 per page</option>
-                    <option value="20">20 per page</option>
-                  </select>
+                    Question List
+                  </h3>
+
+                  <small className="text-muted">
+                    Manage all questions easily
+                  </small>
+
                 </div>
-              </div>
 
-              {/* Table */}
-              <div className="table-responsive">
-                <table className="table table-bordered table-hover text-center align-middle">
-                  <thead style={{ background: "#f2e6ff" }}>
-                    <tr>
-                      <th>S.No.</th>
-                      <th>Question</th>
-                      <th>Subject</th>
-                      <th>Option 1</th>
-                      <th>Option 2</th>
-                      <th>Option 3</th>
-                      <th>Option 4</th>
-                      <th>Correct</th>
-                      <th>Action</th>
-                    </tr>
-                  </thead>
-
-                  <tbody>
-                    {currentData.length > 0 ? (
-                      currentData.map((q, index) => (
-                        <tr key={q._id}>
-                          <td>{indexOfFirst + index + 1}</td>
-                          <td className="text-start">{q.question}</td>
-                          <td>{q.subject?.subjectname}</td>
-                          <td>{q.optionA}</td>
-                          <td>{q.optionB}</td>
-                          <td>{q.optionC}</td>
-                          <td>{q.optionD}</td>
-                          <td>{q.correctAnswer}</td>
-                          <td>
-                            <div className="d-flex flex-wrap gap-2 justify-content-center">
-                              <button
-                                className="btn btn-warning btn-sm"
-                                onClick={() => handleEdit(q)}
-                              >
-                                Edit
-                              </button>
-                              <button
-                                className="btn btn-danger btn-sm"
-                                onClick={() => handleDelete(q._id)}
-                              >
-                                Delete
-                              </button>
-                            </div>
-                          </td>
-                        </tr>
-                      ))
-                    ) : (
-                      <tr>
-                        <td colSpan="9" className="text-muted">
-                          No matching records found
-                        </td>
-                      </tr>
-                    )}
-                  </tbody>
-                </table>
-              </div>
-
-              {/* Pagination */}
-              <div className="d-flex justify-content-between align-items-center mt-3">
-                <button
-                  className="btn text-white"
-                  style={{ background: "#39064fff" }}
-                  disabled={currentPage === 1}
-                  onClick={() => setCurrentPage((p) => p - 1)}
-                >
-                  Previous
-                </button>
-
-                <span className="fw-semibold">
-                  Page {currentPage} of {totalPages}
-                </span>
-
-                <button
-                  className="btn text-white"
-                  style={{ background: "#39064fff" }}
-                  disabled={currentPage === totalPages}
-                  onClick={() => setCurrentPage((p) => p + 1)}
-                >
-                  Next
-                </button>
               </div>
 
             </div>
+
+            {/* Search */}
+            <div className="col-lg-4">
+
+              <div className="position-relative">
+
+                <i
+                  className="fa-solid fa-magnifying-glass position-absolute"
+                  style={{
+                    top: "20px",
+                    left: "18px",
+                    color: "#6c757d"
+                  }}
+                ></i>
+
+                <input
+                  type="text"
+                  className="form-control shadow-sm ps-5"
+                  placeholder="Search Question..."
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                  style={{
+                    borderRadius: "15px",
+                    height: "55px"
+                  }}
+                />
+
+              </div>
+
+            </div>
+
+            {/* Per Page */}
+            <div className="col-lg-3">
+
+              <select
+                className="form-select shadow-sm"
+                value={perPage}
+                onChange={(e) => {
+                  setPerPage(Number(e.target.value));
+                  setCurrentPage(1);
+                }}
+                style={{
+                  borderRadius: "15px",
+                  height: "55px"
+                }}
+              >
+                <option value="5">
+                  Show 5
+                </option>
+
+                <option value="10">
+                  Show 10
+                </option>
+
+                <option value="20">
+                  Show 20
+                </option>
+
+              </select>
+
+            </div>
+
           </div>
+
+          {/* Table */}
+          <div className="table-responsive">
+
+            <table className="table table-hover align-middle">
+
+              <thead
+                className="text-white"
+                style={{
+                  background:
+                    "linear-gradient(90deg,#4F46E5,#7C3AED)"
+                }}
+              >
+                <tr>
+                  <th>S.No.</th>
+                  <th>Question</th>
+                  <th>Subject</th>
+                  <th>Option A</th>
+                  <th>Option B</th>
+                  <th>Option C</th>
+                  <th>Option D</th>
+                  <th>Correct Answer</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+
+              <tbody>
+
+                {currentData.length > 0 ? (
+
+                  currentData.map((q, index) => (
+
+                    <tr key={q._id}>
+
+                      <td className="fw-semibold">
+                        {indexOfFirst + index + 1}
+                      </td>
+
+                      {/* Question */}
+                      <td className="text-start fw-semibold">
+                        {q.question}
+                      </td>
+
+                      {/* Subject */}
+                      <td>
+                        <span
+                          className="badge px-3 py-2"
+                          style={{
+                            background:
+                              "linear-gradient(90deg,#4F46E5,#7C3AED)",
+                            fontSize: "14px"
+                          }}
+                        >
+                          {q.subject?.subjectname}
+                        </span>
+                      </td>
+
+                      {/* Options */}
+                      <td>{q.optionA}</td>
+                      <td>{q.optionB}</td>
+                      <td>{q.optionC}</td>
+                      <td>{q.optionD}</td>
+
+                      {/* Correct Answer */}
+                      <td>
+                        <span
+                          className="badge bg-success px-3 py-2"
+                        >
+                          {q.correctAnswer}
+                        </span>
+                      </td>
+
+                      {/* Action */}
+                      <td>
+
+                        <div className="d-flex gap-2 justify-content-center flex-wrap">
+
+                          <button
+                            className="btn btn-sm text-white px-3"
+                            style={{
+                              background:
+                                "linear-gradient(90deg,#4F46E5,#7C3AED)",
+                              borderRadius: "10px"
+                            }}
+                            onClick={() => handleEdit(q)}
+                          >
+                            <i className="fa-solid fa-pen-to-square me-1"></i>
+                            Edit
+                          </button>
+
+                          <button
+                            className="btn btn-danger btn-sm px-3"
+                            style={{
+                              borderRadius: "10px"
+                            }}
+                            onClick={() => handleDelete(q._id)}
+                          >
+                            <i className="fa-solid fa-trash me-1"></i>
+                            Delete
+                          </button>
+
+                        </div>
+
+                      </td>
+
+                    </tr>
+
+                  ))
+
+                ) : (
+
+                  <tr>
+
+                    <td colSpan="9">
+
+                      <div className="text-center py-5">
+
+                        <i
+                          className="fa-solid fa-circle-question mb-3"
+                          style={{
+                            fontSize: "60px",
+                            color: "#7C3AED"
+                          }}
+                        ></i>
+
+                        <h5 className="text-muted">
+                          No Questions Found
+                        </h5>
+
+                        <p className="text-secondary">
+                          Add new questions or try another search.
+                        </p>
+
+                      </div>
+
+                    </td>
+
+                  </tr>
+
+                )}
+
+              </tbody>
+            </table>
+          </div>
+
+          {/* Pagination */}
+          <div className="d-flex justify-content-center align-items-center gap-4 flex-wrap mt-4">
+
+            <button
+              className="btn text-white px-4"
+              style={{
+                background:
+                  "linear-gradient(90deg,#4F46E5,#7C3AED)",
+                borderRadius: "12px"
+              }}
+              disabled={currentPage === 1}
+              onClick={() => setCurrentPage((p) => p - 1)}
+            >
+              <i className="fa-solid fa-angle-left me-2"></i>
+              Previous
+            </button>
+
+            <div
+              className="fw-bold px-4 py-2 shadow-sm"
+              style={{
+                borderRadius: "15px",
+                background: "#f5f3ff",
+                color: "#312E81"
+              }}
+            >
+              Page {currentPage} of {totalPages}
+            </div>
+
+            <button
+              className="btn text-white px-4"
+              style={{
+                background:
+                  "linear-gradient(90deg,#4F46E5,#7C3AED)",
+                borderRadius: "12px"
+              }}
+              disabled={currentPage === totalPages}
+              onClick={() => setCurrentPage((p) => p + 1)}
+            >
+              Next
+              <i className="fa-solid fa-angle-right ms-2"></i>
+            </button>
+
+          </div>
+
         </div>
       </div>
-
     </div>
+    // </div>
+
+    // </div>
 
   );
 };

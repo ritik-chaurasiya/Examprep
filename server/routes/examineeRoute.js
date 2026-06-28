@@ -97,51 +97,152 @@ router.post('/',async(req,res)=>{
     const examinee = await new Examinee(req.body);
     examinee.save()
      res.status(200).json(" Examinee registered successfully");
-    const html = `
-  <div style="font-family: 'Segoe UI', sans-serif; background: linear-gradient(135deg, #e3f2fd, #ffffff); padding: 40px;">
-    <div style="max-width: 650px; margin: auto; background: #ffffff; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); overflow: hidden;">
-     
-      <!-- Header -->
-      <div style="background: linear-gradient(90deg, #007bff, #00c6ff); padding: 25px; text-align: center;">
-        <h1 style="color: #ffffff; margin: 0; font-size: 28px;">🎓 Welcome to Softpro!</h1>
-      </div>
-     
-      <!-- Body -->
-      <div style="padding: 30px;">
-        <p style="font-size: 18px; color: #333;"><strong>Dear ${name},</strong></p>
-
-        <p style="font-size: 16px; color: #555; line-height: 1.6;">
-          We're excited to welcome you to the <strong>Softpro Exam Prep</strong>! Your registration was successful, and your account is now active.
-        </p>
-
-        <p style="font-size: 16px; color: #555; line-height: 1.6;">
-          You can now log in to access your dashboard, take exams, track your progress, and explore learning resources.
-        </p>
-
-        <!-- CTA Button -->
-        <div style="text-align: center; margin: 30px 0;">
-          <a href="https://localhost:5000/login; style="background: #007bff; color: #fff; padding: 12px 24px; font-size: 16px; border-radius: 6px; text-decoration: none; display: inline-block;">
-            🔐 Log in to Your Account
-          </a>
-        </div>
-
-        <p style="font-size: 16px; color: #555;">
-          If you have any questions or face issues logging in, feel free to contact our support team.
-        </p>
-
-        <p style="margin-top: 30px; font-size: 16px; color: #333;">
-          Best regards,<br>
-          <strong>Team Softpro</strong>
-        </p>
-      </div>
-
-      <!-- Footer -->
-      <div style="background-color: #f1f1f1; text-align: center; padding: 20px; font-size: 12px; color: #777;">
-        This is an automated message. Please do not reply to this email.
-      </div>
-    </div>
-  </div>
-`;
+   const html = `
+   <div style="font-family:Arial,sans-serif;background:#f5f7fb;padding:40px 20px;">
+   
+     <div style="max-width:650px;margin:auto;background:#ffffff;border-radius:15px;overflow:hidden;box-shadow:0 8px 25px rgba(0,0,0,.1);">
+   
+       <!-- Header -->
+       <div style="background:linear-gradient(90deg,#4F46E5,#7C3AED);padding:35px;text-align:center;">
+   
+         <h1 style="margin:0;color:#fff;font-size:30px;">
+           🎓 ExamPrep AI
+         </h1>
+   
+         <p style="margin-top:10px;color:#e8e8ff;font-size:16px;">
+           Online Examination Management System
+         </p>
+   
+       </div>
+   
+       <!-- Body -->
+   
+       <div style="padding:35px;">
+   
+         <h2 style="color:#333;">
+           Hello ${name},
+         </h2>
+   
+         <p style="font-size:16px;color:#555;line-height:1.8;">
+           Congratulations! 🎉
+         </p>
+   
+         <p style="font-size:16px;color:#555;line-height:1.8;">
+           Your registration has been completed successfully.
+           Your account is now active and you can access your dashboard,
+           attend examinations, view results and monitor your progress.
+         </p>
+   
+         <table
+           width="100%"
+           cellpadding="12"
+           style="margin:30px 0;background:#F4F3FF;border-radius:10px;"
+         >
+   
+           <tr>
+   
+             <td>
+   
+               <strong>Name :</strong> ${name}
+   
+             </td>
+   
+           </tr>
+   
+           <tr>
+   
+             <td>
+   
+               <strong>Email :</strong> ${email}
+   
+             </td>
+   
+           </tr>
+   
+         </table>
+   
+         <!-- Button -->
+   
+         <div style="text-align:center;margin:35px 0;">
+   
+           <a
+             href="https://your-frontend-url.com/login"
+             style="
+               background:linear-gradient(90deg,#4F46E5,#7C3AED);
+               color:#fff;
+               text-decoration:none;
+               padding:15px 35px;
+               border-radius:30px;
+               display:inline-block;
+               font-size:17px;
+               font-weight:bold;
+             "
+           >
+             🔐 Login to Your Account
+           </a>
+   
+         </div>
+   
+         <h3 style="color:#4F46E5;">
+           What you can do now?
+         </h3>
+   
+         <ul style="color:#555;font-size:15px;line-height:2;">
+   
+           <li>✅ Login to your dashboard</li>
+   
+           <li>📝 Attend online exams</li>
+   
+           <li>📊 View exam results instantly</li>
+   
+           <li>👤 Update your profile</li>
+   
+           <li>💬 Contact the administrator anytime</li>
+   
+         </ul>
+   
+         <hr style="margin:35px 0;border:none;border-top:1px solid #ddd;">
+   
+         <p style="font-size:15px;color:#666;">
+   
+           If you didn't create this account, please ignore this email.
+   
+         </p>
+   
+         <p style="margin-top:25px;color:#333;">
+   
+           Regards,<br>
+   
+           <strong>ExamPrep AI Team</strong>
+   
+         </p>
+   
+       </div>
+   
+       <!-- Footer -->
+   
+       <div
+         style="
+           background:#F4F3FF;
+           text-align:center;
+           padding:20px;
+           font-size:13px;
+           color:#666;
+         "
+       >
+   
+         © ${new Date().getFullYear()} ExamPrep AI
+   
+         <br>
+   
+         This is an automated email. Please do not reply.
+   
+       </div>
+   
+     </div>
+   
+   </div>
+  `;
     setTimeout(async()=>{
         await sendEmail(email,"welcome to the exam portal",html)
     },100)

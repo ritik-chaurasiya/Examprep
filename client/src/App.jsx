@@ -25,6 +25,7 @@ import AdminHome from "./pages/Admin/AdminHome";
 import Component from "./pages/Component";
 import UserHome from "./pages/User/UserHome";
 import UserDash from "./pages/User/UserDash";
+import { ToastContainer } from "react-toastify";
 
 
 function App() {
@@ -70,6 +71,16 @@ function App() {
 
         </Routes>
       </Router>
+
+      <ToastContainer
+        position="top-end"
+        autoClose={2500}
+        newestOnTop
+        closeOnClick
+        pauseOnHover
+        draggable
+        theme="colored"
+      />
     </>
   );
 }

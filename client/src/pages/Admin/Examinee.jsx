@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
+import { toast } from "react-toastify";
 
 const Examinee = () => {
   const [data, setData] = useState([]);
@@ -27,9 +28,9 @@ const Examinee = () => {
   const handleDelete = async (id) => {
     const res = await axios.delete(`https://examprep-bxeo.onrender.com/api/examinee/${id}`);
     if (res) {
-      alert("Deleted Successfully");
+      toast.success("Deleted Successfully");
     } else {
-      alert("Try Again Later");
+      toast.error("Try Again Later");
     }
     handlefetch();
   };
@@ -58,7 +59,7 @@ const Examinee = () => {
     if (!editingId) return;
     try {
       await axios.put(`https://examprep-bxeo.onrender.com/api/examinee/${editingId}`, form);
-      alert('Examinee Updated Successfully');
+      toast.success('Examinee Updated Successfully');
       setForm({
         name: '',
         email: '',
@@ -72,7 +73,7 @@ const Examinee = () => {
       handlefetch();
     } catch (error) {
       console.error("Error updating examinee:", error);
-      alert("Error updating examinee");
+      toast.error("Error updating examinee");
     }
   };
 
@@ -94,134 +95,299 @@ const Examinee = () => {
       <div className="container-fluid p-2">
 
         {/* ================= EDIT EXAMINEE FORM ================= */}
+
         {editFormVisible && (
-          <div className="row mb-3">
+          <div className="row mb-4">
             <div className="col-12">
-              <div className="card border border-2" style={{ borderColor: "#6f42c1" }}>
-                <div className="card-body">
-                  <h3 className="fw-bold mb-3" style={{ color: "#6f42c1" }}>
-                    Edit Examinee
-                  </h3>
+
+              <div
+                className="card border-0 shadow-lg"
+                style={{
+                  borderRadius: "25px",
+                  background: "rgba(255,255,255,.96)"
+                }}
+              >
+                <div className="card-body p-4">
+
+                  <div className="d-flex align-items-center mb-4">
+                    <div
+                      className="rounded-circle d-flex align-items-center justify-content-center me-3"
+                      style={{
+                        width: "55px",
+                        height: "55px",
+                        background:
+                          "linear-gradient(90deg,#4F46E5,#7C3AED)"
+                      }}
+                    >
+                      <i className="fa-solid fa-user-pen text-white fs-4"></i>
+                    </div>
+
+                    <div>
+                      <h3
+                        className="fw-bold mb-0"
+                        style={{ color: "#312E81" }}
+                      >
+                        Edit Examinee
+                      </h3>
+
+                      <small className="text-muted">
+                        Update student information
+                      </small>
+                    </div>
+                  </div>
 
                   <form onSubmit={handleSubmit}>
-                    <div className="row g-2 mb-2">
-                      <div className="col-12 col-md-4">
+
+                    <div className="row g-3">
+
+                      <div className="col-md-4">
+                        <label className="fw-semibold mb-2">
+                          Full Name
+                        </label>
+
                         <input
-                          className="form-control"
+                          className="form-control shadow-sm"
                           name="name"
                           value={form.name}
                           onChange={handleChange}
-                          placeholder="Name"
+                          placeholder="Enter Name"
                           required
+                          style={{
+                            borderRadius: "15px",
+                            height: "55px"
+                          }}
                         />
                       </div>
 
-                      <div className="col-12 col-md-4">
+                      <div className="col-md-4">
+                        <label className="fw-semibold mb-2">
+                          Email Address
+                        </label>
+
                         <input
-                          className="form-control"
+                          className="form-control shadow-sm"
                           name="email"
                           value={form.email}
                           onChange={handleChange}
-                          placeholder="Email"
+                          placeholder="Enter Email"
                           required
+                          style={{
+                            borderRadius: "15px",
+                            height: "55px"
+                          }}
                         />
                       </div>
 
-                      <div className="col-12 col-md-4">
+                      <div className="col-md-4">
+                        <label className="fw-semibold mb-2">
+                          Mobile Number
+                        </label>
+
                         <input
-                          className="form-control"
+                          className="form-control shadow-sm"
                           name="number"
                           value={form.number}
                           onChange={handleChange}
-                          placeholder="Number"
+                          placeholder="Enter Number"
                           required
+                          style={{
+                            borderRadius: "15px",
+                            height: "55px"
+                          }}
                         />
                       </div>
-                    </div>
 
-                    <div className="row g-2 mb-3">
-                      <div className="col-12 col-md-4">
+                      <div className="col-md-4">
+                        <label className="fw-semibold mb-2">
+                          Address
+                        </label>
+
                         <input
-                          className="form-control"
+                          className="form-control shadow-sm"
                           name="address"
                           value={form.address}
                           onChange={handleChange}
                           placeholder="Address"
+                          style={{
+                            borderRadius: "15px",
+                            height: "55px"
+                          }}
                         />
                       </div>
 
-                      <div className="col-12 col-md-4">
+                      <div className="col-md-4">
+                        <label className="fw-semibold mb-2">
+                          College
+                        </label>
+
                         <input
-                          className="form-control"
+                          className="form-control shadow-sm"
                           name="college"
                           value={form.college}
                           onChange={handleChange}
-                          placeholder="College"
+                          placeholder="College Name"
+                          style={{
+                            borderRadius: "15px",
+                            height: "55px"
+                          }}
                         />
                       </div>
 
-                      <div className="col-12 col-md-4">
+                      <div className="col-md-4">
+                        <label className="fw-semibold mb-2">
+                          Qualification
+                        </label>
+
                         <input
-                          className="form-control"
+                          className="form-control shadow-sm"
                           name="qualification"
                           value={form.qualification}
                           onChange={handleChange}
                           placeholder="Qualification"
+                          style={{
+                            borderRadius: "15px",
+                            height: "55px"
+                          }}
                         />
                       </div>
+
                     </div>
 
-                    <div className="d-flex flex-wrap gap-2">
+                    <div className="d-flex gap-3 mt-4 flex-wrap">
+
                       <button
                         type="submit"
-                        className="btn text-white"
-                        style={{ background: "#39064fff" }}
+                        className="btn text-white px-4 py-2 fw-semibold"
+                        style={{
+                          background:
+                            "linear-gradient(90deg,#4F46E5,#7C3AED)",
+                          borderRadius: "15px"
+                        }}
                       >
+                        <i className="fa-solid fa-floppy-disk me-2"></i>
                         Update
                       </button>
 
                       <button
                         type="button"
-                        className="btn btn-outline-secondary"
+                        className="btn btn-outline-secondary px-4"
+                        style={{
+                          borderRadius: "15px"
+                        }}
                         onClick={() => setEditFormVisible(false)}
                       >
                         Cancel
                       </button>
+
                     </div>
+
                   </form>
+
                 </div>
               </div>
+
             </div>
           </div>
         )}
 
         {/* ================= EXAMINEE TABLE ================= */}
+
         <div className="row">
+
           <div className="col-12">
-            <div className="card border border-2" style={{ borderColor: "#6f42c1" }}>
-              <div className="card-body">
 
-                <div className="row align-items-center mb-3 g-2">
-                  <div className="col-12 col-md-6">
-                    <h3 className="fw-bold mb-0" style={{ color: "#6f42c1" }}>
-                      Examinee Details
-                    </h3>
+            <div
+              className="card border-0 shadow-lg"
+              style={{
+                borderRadius: "25px",
+                background: "rgba(255,255,255,.96)"
+              }}
+            >
+
+              <div className="card-body p-4">
+
+                {/* Header */}
+                <div className="row align-items-center g-3 mb-4">
+
+                  <div className="col-md-6">
+
+                    <div className="d-flex align-items-center">
+
+                      <div
+                        className="rounded-circle d-flex justify-content-center align-items-center me-3"
+                        style={{
+                          width: "55px",
+                          height: "55px",
+                          background:
+                            "linear-gradient(90deg,#4F46E5,#7C3AED)"
+                        }}
+                      >
+                        <i className="fa-solid fa-users text-white fs-4"></i>
+                      </div>
+
+                      <div>
+                        <h3
+                          className="fw-bold mb-0"
+                          style={{
+                            color: "#312E81"
+                          }}
+                        >
+                          Examinee Details
+                        </h3>
+
+                        <small className="text-muted">
+                          Manage all registered students
+                        </small>
+                      </div>
+
+                    </div>
+
                   </div>
 
-                  <div className="col-12 col-md-6">
-                    <input
-                      type="text"
-                      className="form-control"
-                      placeholder="Search examinee..."
-                      value={search}
-                      onChange={(e) => setSearch(e.target.value)}
-                    />
+                  {/* Search */}
+                  <div className="col-md-6">
+
+                    <div className="position-relative">
+
+                      <i
+                        className="fa-solid fa-magnifying-glass position-absolute"
+                        style={{
+                          top: "20px",
+                          left: "18px",
+                          color: "#6c757d"
+                        }}
+                      ></i>
+
+                      <input
+                        type="text"
+                        className="form-control shadow-sm ps-5"
+                        placeholder="Search examinee..."
+                        value={search}
+                        onChange={(e) => setSearch(e.target.value)}
+                        style={{
+                          borderRadius: "15px",
+                          height: "55px"
+                        }}
+                      />
+
+                    </div>
+
                   </div>
+
                 </div>
 
+                {/* Table */}
                 <div className="table-responsive">
-                  <table className="table table-bordered table-hover text-center align-middle">
-                    <thead style={{ background: "#f2e6ff" }}>
+
+                  <table className="table table-hover align-middle">
+
+                    <thead
+                      className="text-white"
+                      style={{
+                        background:
+                          "linear-gradient(90deg,#4F46E5,#7C3AED)"
+                      }}
+                    >
                       <tr>
                         <th>S.No.</th>
                         <th>Name</th>
@@ -235,54 +401,160 @@ const Examinee = () => {
                     </thead>
 
                     <tbody>
+
                       {filteredData.length > 0 ? (
+
                         filteredData.map((item, i) => (
+
                           <tr key={item._id}>
-                            <td>{i + 1}</td>
-                            <td>{item.name}</td>
-                            <td>{item.email}</td>
-                            <td>{item.number}</td>
-                            <td>{item.address}</td>
-                            <td>{item.college}</td>
-                            <td>{item.qualification}</td>
+
+                            <td className="fw-semibold">
+                              {i + 1}
+                            </td>
+
+                            {/* Name */}
                             <td>
-                              <div className="d-flex flex-wrap gap-2 justify-content-center">
-                                <button
-                                  className="btn btn-warning btn-sm"
-                                  onClick={() => handleEdit(item)}
+                              <div className="d-flex align-items-center">
+
+                                <div
+                                  className="rounded-circle text-white fw-bold d-flex justify-content-center align-items-center me-2"
+                                  style={{
+                                    width: "40px",
+                                    height: "40px",
+                                    background:
+                                      "linear-gradient(90deg,#4F46E5,#7C3AED)"
+                                  }}
                                 >
-                                  Edit
-                                </button>
-                                <button
-                                  className="btn btn-danger btn-sm"
-                                  onClick={() => handleDelete(item._id)}
-                                >
-                                  Delete
-                                </button>
+                                  {item.name?.charAt(0).toUpperCase()}
+                                </div>
+
+                                <span className="fw-semibold">
+                                  {item.name}
+                                </span>
+
                               </div>
                             </td>
+
+                            {/* Email */}
+                            <td>
+                              <span className="text-primary">
+                                {item.email}
+                              </span>
+                            </td>
+
+                            {/* Mobile */}
+                            <td>{item.number}</td>
+
+                            {/* Address */}
+                            <td>{item.address}</td>
+
+                            {/* College */}
+                            <td>
+                              <span className="badge bg-info text-dark px-3 py-2">
+                                {item.college}
+                              </span>
+                            </td>
+
+                            {/* Qualification */}
+                            <td>
+                              <span
+                                className="badge text-white px-3 py-2"
+                                style={{
+                                  background:
+                                    "linear-gradient(90deg,#4F46E5,#7C3AED)"
+                                }}
+                              >
+                                {item.qualification}
+                              </span>
+                            </td>
+
+                            {/* Action */}
+                            <td>
+
+                              <div className="d-flex justify-content-center gap-2 flex-wrap">
+
+                                <button
+                                  className="btn btn-sm text-white px-3"
+                                  style={{
+                                    background:
+                                      "linear-gradient(90deg,#4F46E5,#7C3AED)",
+                                    borderRadius: "10px"
+                                  }}
+                                  onClick={() => handleEdit(item)}
+                                >
+                                  <i className="fa-solid fa-pen-to-square me-1"></i>
+                                  Edit
+                                </button>
+
+                                <button
+                                  className="btn btn-danger btn-sm px-3"
+                                  style={{
+                                    borderRadius: "10px"
+                                  }}
+                                  onClick={() => handleDelete(item._id)}
+                                >
+                                  <i className="fa-solid fa-trash me-1"></i>
+                                  Delete
+                                </button>
+
+                              </div>
+
+                            </td>
+
                           </tr>
+
                         ))
+
                       ) : (
+
                         <tr>
-                          <td colSpan="8" className="text-muted">
-                            No matching records found
+
+                          <td colSpan="8">
+
+                            <div className="text-center py-5">
+
+                              <i
+                                className="fa-solid fa-users-slash mb-3"
+                                style={{
+                                  fontSize: "60px",
+                                  color: "#7C3AED"
+                                }}
+                              ></i>
+
+                              <h5 className="text-muted">
+                                No matching records found
+                              </h5>
+
+                              <small className="text-secondary">
+                                Search another examinee or add new users.
+                              </small>
+
+                            </div>
+
                           </td>
+
                         </tr>
+
                       )}
+
                     </tbody>
                   </table>
-                </div>
 
+
+                </div>
               </div>
             </div>
+
           </div>
+
         </div>
+
 
       </div>
 
 
     </>
+
   );
 };
 
