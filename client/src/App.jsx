@@ -73,12 +73,8 @@ function App() {
       </Router>
 
       <ToastContainer
-        position="top-end"
-        autoClose={2500}
-        newestOnTop
-        closeOnClick
-        pauseOnHover
-        draggable
+        position="top-right"
+        autoClose={3000}
         theme="colored"
       />
     </>
